@@ -99,6 +99,16 @@ class Storage extends \ArrayObject
     }
 
     /**
+     * Convert to array.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return $this->getArrayCopy();
+    }
+
+    /**
      * Create a storage from keys and rows.
      *
      * @param array $columns
