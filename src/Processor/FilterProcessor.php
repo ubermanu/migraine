@@ -15,6 +15,11 @@ use Migraine\TaskRuntime;
  * If it does not match, remove the row.
  * @see https://hoa-project.net/En/Literature/Hack/Ruler.html
  *
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ * @method string getRule()
+ * @method $this setRule(string $rule)
+ *
  * @package Migraine\Processor
  */
 class FilterProcessor extends AbstractProcessor
@@ -25,7 +30,7 @@ class FilterProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
+        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
         $ruler = new Ruler();
 
         for ($i = 0, $l = $storage->size(); $i < $l; $i++) {
@@ -37,22 +42,5 @@ class FilterProcessor extends AbstractProcessor
 
         // TODO: Refresh keys
         $storage->copy($storage);
-    }
-
-    /**
-     * @return string
-     */
-    public function getRule(): string
-    {
-        return $this->getData('filter');
-    }
-
-    /**
-     * @param string $rule
-     * @return $this
-     */
-    public function setRule(string $rule): FilterProcessor
-    {
-        return $this->setData('filter', $rule);
     }
 }

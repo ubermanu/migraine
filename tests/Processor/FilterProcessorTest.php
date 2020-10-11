@@ -29,10 +29,9 @@ class FilterProcessorTest extends AbstractProcessorTest
 
         $this->migraine->addStorage('test', new Storage($data));
 
-        $p = new FilterProcessor([
-            'filter' => 'foo > 2',
-            'in' => 'test',
-        ]);
+        $p = new FilterProcessor();
+        $p->setRule('foo > 2');
+        $p->setStorage('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();

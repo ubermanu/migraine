@@ -8,24 +8,26 @@ use Migraine\TaskRuntime;
 
 /**
  * Class LimitProcessor
+ *
+ * @method int getLength()
+ * @method $this setLength(int $length)
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ *
  * @package Migraine\Processor
  */
 class LimitProcessor extends AbstractProcessor
 {
+    protected array $data = [
+        'length' => 0,
+    ];
+
     /**
      * @inheritdoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $this->getStorageOrDefault($taskRuntime, 'in')->slice(0, $this->getLength());
-    }
-
-    /**
-     * @return int
-     */
-    protected function getLength(): int
-    {
-        return $this->getData('limit') ?? 0;
+        $this->getStorageOrDefault($taskRuntime, 'storage')->slice(0, $this->getLength());
     }
 }

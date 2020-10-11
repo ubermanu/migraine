@@ -29,10 +29,9 @@ class LimitProcessorTest extends AbstractProcessorTest
 
         $this->migraine->addStorage('test', new Storage($data));
 
-        $p = new LimitProcessor([
-            'limit' => 3,
-            'in' => 'test',
-        ]);
+        $p = new LimitProcessor();
+        $p->setLength(3);
+        $p->setStorage('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();

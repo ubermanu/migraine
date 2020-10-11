@@ -28,9 +28,8 @@ class FlushProcessorTest extends AbstractProcessorTest
 
         $this->migraine->addStorage('test', new Storage($data));
 
-        $p = new FlushProcessor([
-            'flush' => 'test',
-        ]);
+        $p = new FlushProcessor();
+        $p->setStorage('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();
