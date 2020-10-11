@@ -25,15 +25,58 @@ class Migraine
     protected array $storages = [];
 
     /**
+     * @var string
+     */
+    protected string $defaultStorageIdentifier;
+
+    /**
+     * Migraine constructor.
+     */
+    public function __construct()
+    {
+        $this->defaultStorageIdentifier = 'storage-' . md5(microtime());
+//        $this->addStorage(new Storage(), $this->defaultStorageIdentifier);
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @return Task[]
+     */
+    public function getTasks(): array
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * @return Storage[]
+     */
+    public function getStorages(): array
+    {
+        return $this->storages;
+    }
+
+    /**
+     * @return TaskRuntime
+     */
+    protected function createTaskRuntime(): TaskRuntime
+    {
+        return new TaskRuntime($this);
+    }
+
+    /**
+     * Create a runtime proxy, then execute the given task.
+     *
      * @param string $taskName
-     * @throws Exception
      */
     public function execute(string $taskName = 'default')
     {
-        if (empty($this->tasks[$taskName])) {
-            throw new Exception(sprintf('The task "%s" does not exist!', $taskName));
-        }
-
-//        $this->tasks[$taskName]->execute();
+//        $taskRuntime = $this->createTaskRuntime($this)->execute($taskName);
     }
 }

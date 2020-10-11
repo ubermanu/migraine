@@ -11,17 +11,15 @@ use PHPUnit\Framework\TestCase;
  */
 final class MigraineTest extends TestCase
 {
-    public function testCanExecuteTask(): void
+    public function testCanAddTask(): void
     {
-
-
         $this->assertInstanceOf(
             Email::class,
             Email::fromString('user@example.com')
         );
     }
 
-    public function testCanExecuteTask(): void
+    public function testCanNotAddExistingTask(): void
     {
         $this->assertInstanceOf(
             Email::class,
