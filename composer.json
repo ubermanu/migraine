@@ -11,8 +11,9 @@
     ],
     "require": {
         "php": ">=7.4.0",
+        "ext-json": "*",
         "hoa/ruler": "~2.0",
-        "ext-json": "*"
+        "tolidano/commandox": "^0.7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4"
@@ -26,5 +27,8 @@
         "psr-4": {
             "Migraine\\Tests\\": "tests/"
         }
-    }
+    },
+    "bin": [
+        "bin/migraine"
+    ]
 }
