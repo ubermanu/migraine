@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
-use Migraine\TaskRuntime;
 use Migraine\Processor\Traits\IOProcessorTrait;
-use Migraine\Writer\AbstractWriter;
+use Migraine\Reader\AbstractReader;
+use Migraine\TaskRuntime;
 
 /**
- * Class WriteProcessor
+ * Class ReadProcessor
  *
  * @method $this setResourceName(string $resourceName)
  * @method string getStorage()
@@ -17,7 +17,7 @@ use Migraine\Writer\AbstractWriter;
  *
  * @package Migraine\Processor
  */
-class WriteProcessor extends AbstractProcessor
+class ReadProcessor extends AbstractProcessor
 {
     use IOProcessorTrait;
 
@@ -30,7 +30,7 @@ class WriteProcessor extends AbstractProcessor
     ];
 
     /**
-     * @inheritdoc
+     * @param TaskRuntime $taskRuntime
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
@@ -38,13 +38,13 @@ class WriteProcessor extends AbstractProcessor
         $resourceType = $this->getResourceType();
 
         // TODO: Override by settings
-        $className = '\\Migraine\\Writer\\' . ucfirst($resourceType) . 'Writer';
+        $className = '\\Migraine\\Reader\\' . ucfirst($resourceType) . 'Reader';
 
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        /** @var AbstractReader $reader */
+        $reader = new $className();
+        $storage = $reader->read($this->getResourceName(), $this->getResourceOptions());
 
-        /** @var AbstractWriter $writer */
-        $writer = new $className();
-        $writer->write($storage, $this->getResourceName(), $this->getResourceOptions());
+        $this->getStorageOrDefault($taskRuntime, 'storage')->copy($storage);
     }
 
     /**

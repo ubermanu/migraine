@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "hoa/ruler": "~2.0"
+        "hoa/ruler": "~2.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4"
