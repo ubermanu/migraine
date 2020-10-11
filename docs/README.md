@@ -1,7 +1,7 @@
 # Introduction to Migraine
 
 Migraine is a task runner oriented on data processing.<br>
-It's a tool to migrate and transform data sources into a certain destination.
+It's a tool to transform and format data streams.
 
 ## Install
 
