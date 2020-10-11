@@ -30,6 +30,6 @@ class ErrorProcessorTest extends AbstractProcessorTest
         $this->expectExceptionMessage('Error has been thrown!');
 
         $this->defaultTask->addProcessor($p);
-        $this->migraine->execute('default');
+        $this->migraine->execute();
     }
 }

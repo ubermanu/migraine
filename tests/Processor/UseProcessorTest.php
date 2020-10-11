@@ -29,7 +29,7 @@ class UseProcessorTest extends AbstractProcessorTest
         ]);
 
         $this->defaultTask->addProcessor($p);
-        $r = $this->migraine->execute('default');
+        $r = $this->migraine->execute();
 
         $this->assertEquals($r->getStorage('test-foo-bar'), $r->getDefaultStorage());
     }
