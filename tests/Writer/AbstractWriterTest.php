@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Migraine\Tests\Writer;
 
-use PHPUnit\Framework\TestCase;
+use Migraine\Tests\Processor\AbstractProcessorTest;
 
 /**
  * Class AbstractWriterTest
  * @package Migraine\Tests\Writer
  */
-abstract class AbstractWriterTest extends TestCase
+abstract class AbstractWriterTest extends AbstractProcessorTest
 {
     /**
      * @var string
@@ -21,6 +21,7 @@ abstract class AbstractWriterTest extends TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         @mkdir($this->tempDir);
     }
 
