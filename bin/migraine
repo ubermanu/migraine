@@ -8,7 +8,10 @@ if (file_exists(__DIR__ . '/../autoload.php')) {
     require_once __DIR__ . '/../../../autoload.php';
 }
 
-$cmd = new CommandoX\Command();
+use CommandoX\Command;
+use Migraine\Configuration\YamlParser;
+
+$cmd = new Command();
 
 $cmd->option()
     ->aka('task')
@@ -20,8 +23,10 @@ $cmd->option('c')
     ->default('migraine.yml')
     ->describedAs('Configuration filename');
 
-//try {
-//    \Migraine\Migraine::createFromFile($cmd['config'])->run($cmd['task']);
-//} catch (\Exception $exception) {
-//    echo 'ERROR: ' . $exception->getMessage() . PHP_EOL;
-//}
+try {
+    $config = new YamlParser(file_get_contents($cmd['config']));
+    $migraine = $config->parse()->getMigraine();
+    $migraine->execute($cmd['task']);
+} catch (\Exception $exception) {
+    echo 'ERROR: ' . $exception->getMessage() . PHP_EOL;
+}
