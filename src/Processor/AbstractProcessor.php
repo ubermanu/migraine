@@ -22,9 +22,7 @@ abstract class AbstractProcessor
      */
     public function __construct(array $options = [])
     {
-        if (count($options) > 0) {
-            $this->data = $options;
-        }
+        $this->data = array_replace($this->data, $options);
     }
 
     /**

@@ -1,0 +1,5 @@
+version: '3'
+
+default: !task
+  - error: 'An error has been thrown!'
+    code: 1602454024
