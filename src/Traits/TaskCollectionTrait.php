@@ -15,15 +15,7 @@ trait TaskCollectionTrait
     /**
      * @var Task[]
      */
-    protected array $tasks;
-
-    /**
-     * Initialize task collection.
-     */
-    protected function initializeTaskCollection()
-    {
-        $this->tasks = [];
-    }
+    protected array $tasks = [];
 
     /**
      * @param string $identifier

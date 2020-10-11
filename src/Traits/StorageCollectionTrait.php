@@ -15,22 +15,7 @@ trait StorageCollectionTrait
     /**
      * @var Storage[]
      */
-    protected array $storages;
-
-    /**
-     * @var string
-     */
-    protected string $defaultStorageIdentifier;
-
-    /**
-     * Initialize storage collection.
-     */
-    protected function initializeStorageCollection()
-    {
-        $this->storages = [];
-        $this->defaultStorageIdentifier = 'storage-' . md5(microtime());
-        $this->storages[$this->defaultStorageIdentifier] = new Storage();
-    }
+    protected array $storages = [];
 
     /**
      * @param string $identifier
@@ -44,15 +29,6 @@ trait StorageCollectionTrait
         }
 
         return $this->storages[$identifier];
-    }
-
-    /**
-     * @return Storage
-     * @throws StorageException
-     */
-    public function getDefaultStorage(): Storage
-    {
-        return $this->getStorage($this->defaultStorageIdentifier);
     }
 
     /**

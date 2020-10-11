@@ -18,16 +18,8 @@ class Migraine
         VersionManagerTrait;
 
     /**
-     * Migraine constructor.
-     */
-    public function __construct()
-    {
-        $this->initializeStorageCollection();
-        $this->initializeTaskCollection();
-    }
-
-    /**
      * @return TaskRuntime
+     * @throws Exception\StorageException
      */
     protected function createTaskRuntime(): TaskRuntime
     {
@@ -38,6 +30,7 @@ class Migraine
      * Create a runtime proxy, then execute the given task.
      *
      * @param string $taskName
+     * @throws Exception\StorageException
      * @throws Exception\TaskException
      */
     public function execute(string $taskName = 'default')

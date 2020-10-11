@@ -17,6 +17,8 @@ class Task
     protected array $processors = [];
 
     /**
+     * Add a new processor to the list.
+     *
      * @param AbstractProcessor $processor
      * @return $this
      */
@@ -35,12 +37,17 @@ class Task
     }
 
     /**
-     * @inheritdoc
+     * Run the task processors.
+     *
+     * @param TaskRuntime $taskRuntime
+     * @return $this
      */
-    public function execute(TaskRuntime $taskRuntime): void
+    public function execute(TaskRuntime $taskRuntime): Task
     {
         foreach ($this->processors as $processor) {
             $processor->execute($taskRuntime);
         }
+
+        return $this;
     }
 }

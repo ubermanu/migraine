@@ -21,6 +21,7 @@ final class MigraineTest extends TestCase
         $m = new Migraine();
 
         $this->assertIsArray($m->getStorages());
+        $this->assertCount(0, $m->getStorages());
     }
 
     public function testCannotAddExistingStorage(): void
@@ -32,14 +33,6 @@ final class MigraineTest extends TestCase
 
         $m->addStorage('test', $s);
         $m->addStorage('test', $s);
-    }
-
-    public function testHasDefaultStorage(): void
-    {
-        $m = new Migraine();
-
-        $this->assertCount(1, $m->getStorages());
-        $this->assertInstanceOf(Storage::class, $m->getDefaultStorage());
     }
 
     public function testHasTaskCollection(): void
