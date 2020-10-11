@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
+use Migraine\Exception\StorageException;
+use Migraine\Storage;
 use Migraine\TaskRuntime;
 
 /**
@@ -31,4 +33,20 @@ abstract class AbstractProcessor
      * @return mixed
      */
     public abstract function execute(TaskRuntime $taskRuntime);
+
+    /**
+     * Get a storage using an option value as identifier.
+     * If the option does not exist, select the default storage.
+     *
+     * @param TaskRuntime $taskRuntime
+     * @param string $optionName
+     * @return Storage
+     * @throws StorageException
+     */
+    protected function getStorageOrDefault(TaskRuntime $taskRuntime, string $optionName): Storage
+    {
+        return isset($this->options[$optionName])
+            ? $taskRuntime->getStorage($this->options[$optionName])
+            : $taskRuntime->getDefaultStorage();
+    }
 }
