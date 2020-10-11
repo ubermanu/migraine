@@ -28,6 +28,6 @@ class SelectProcessor extends AbstractProcessor
      */
     protected function getSelectedKeys(): array
     {
-        return array_values($this->options['select']);
+        return array_values($this->getData('select'));
     }
 }

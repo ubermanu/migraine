@@ -16,7 +16,7 @@ class FunctionProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        call_user_func($this->getFunction(), $taskRuntime, $this->options);
+        call_user_func($this->getFunction(), $taskRuntime, $this->data);
     }
 
     /**
@@ -24,6 +24,6 @@ class FunctionProcessor extends AbstractProcessor
      */
     protected function getFunction()
     {
-        return $this->options['function'];
+        return $this->getData('function');
     }
 }

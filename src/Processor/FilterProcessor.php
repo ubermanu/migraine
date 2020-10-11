@@ -44,6 +44,6 @@ class FilterProcessor extends AbstractProcessor
      */
     protected function getRule(): string
     {
-        return $this->options['filter'];
+        return $this->getData('filter');
     }
 }

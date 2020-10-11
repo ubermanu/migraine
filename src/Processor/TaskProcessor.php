@@ -26,6 +26,6 @@ class TaskProcessor extends AbstractProcessor
      */
     protected function getTaskName(): string
     {
-        return $this->options['task'];
+        return $this->getData('task');
     }
 }

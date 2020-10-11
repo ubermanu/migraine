@@ -6,6 +6,7 @@ namespace Migraine\Processor;
 use Migraine\Exception\StorageException;
 use Migraine\Storage;
 use Migraine\TaskRuntime;
+use Migraine\Traits\DataObjectTrait;
 
 /**
  * Class AbstractProcessor
@@ -13,10 +14,7 @@ use Migraine\TaskRuntime;
  */
 abstract class AbstractProcessor
 {
-    /**
-     * @var array
-     */
-    protected array $options;
+    use DataObjectTrait;
 
     /**
      * AbstractProcessor constructor.
@@ -24,7 +22,7 @@ abstract class AbstractProcessor
      */
     public function __construct(array $options = [])
     {
-        $this->options = $options;
+        $this->data = $options;
     }
 
     /**
@@ -45,8 +43,8 @@ abstract class AbstractProcessor
      */
     protected function getStorageOrDefault(TaskRuntime $taskRuntime, string $optionName): Storage
     {
-        return isset($this->options[$optionName])
-            ? $taskRuntime->getStorage($this->options[$optionName])
+        return $this->hasData($optionName)
+            ? $taskRuntime->getStorage($this->getData($optionName))
             : $taskRuntime->getDefaultStorage();
     }
 }

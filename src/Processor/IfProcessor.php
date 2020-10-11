@@ -41,7 +41,7 @@ class IfProcessor extends AbstractProcessor
      */
     protected function getCondition(): string
     {
-        return $this->options['if'];
+        return $this->getData('if');
     }
 
     /**
@@ -54,7 +54,7 @@ class IfProcessor extends AbstractProcessor
      */
     protected function forward(TaskRuntime $taskRuntime, string $optionName): void
     {
-        if ($taskName = $this->options[$optionName] ?? '') {
+        if ($taskName = $this->getData($optionName) ?? '') {
             $taskRuntime->execute($taskName);
         }
     }

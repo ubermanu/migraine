@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
+use Migraine\Exception\StorageException;
 use Migraine\TaskRuntime;
 use Migraine\Processor\Traits\IOProcessorTrait;
 use Migraine\Writer\AbstractWriter;
@@ -20,11 +21,12 @@ class WriteProcessor extends AbstractProcessor
      */
     protected function getResourceName(): string
     {
-        return $this->options['write'];
+        return $this->getData('write');
     }
 
     /**
      * @inheritdoc
+     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {

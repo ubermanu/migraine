@@ -23,6 +23,6 @@ class UseProcessor extends AbstractProcessor
      */
     protected function getStorageIdentifier(): string
     {
-        return $this->options['use'];
+        return $this->getData('use');
     }
 }

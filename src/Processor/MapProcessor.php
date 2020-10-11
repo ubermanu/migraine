@@ -40,6 +40,6 @@ class MapProcessor extends AbstractProcessor
      */
     protected function getMapping(): array
     {
-        return $this->options['map'];
+        return $this->getData('map');
     }
 }

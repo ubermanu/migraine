@@ -26,6 +26,6 @@ class LimitProcessor extends AbstractProcessor
      */
     protected function getLength(): int
     {
-        return $this->options['limit'] ?? 0;
+        return $this->getData('limit') ?? 0;
     }
 }

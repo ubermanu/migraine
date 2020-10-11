@@ -19,7 +19,7 @@ trait IOProcessorTrait
      */
     protected function getResourceType(): string
     {
-        $resourceType = strtolower($this->options['type'] ?? '');
+        $resourceType = strtolower($this->getData('type') ?? '');
 
         if (!empty($resourceType)) {
             return $resourceType;
@@ -35,6 +35,6 @@ trait IOProcessorTrait
      */
     protected function getResourceOptions(): array
     {
-        return $this->options['options'] ?? [];
+        return $this->getData('options') ?? [];
     }
 }

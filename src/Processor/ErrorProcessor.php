@@ -26,7 +26,7 @@ class ErrorProcessor extends AbstractProcessor
      */
     protected function getMessage(): string
     {
-        return $this->options['error'];
+        return $this->getData('error');
     }
 
     /**
@@ -34,7 +34,7 @@ class ErrorProcessor extends AbstractProcessor
      */
     protected function getCode(): int
     {
-        return $this->options['code'] ?? 0;
+        return $this->getData('code') ?? 0;
     }
 
     /**
@@ -42,6 +42,6 @@ class ErrorProcessor extends AbstractProcessor
      */
     protected function getSeverity(): int
     {
-        return $this->options['severity'] ?? 1;
+        return $this->getData('severity') ?? 1;
     }
 }
