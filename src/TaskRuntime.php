@@ -6,7 +6,6 @@ namespace Migraine;
 use Migraine\Exception\StorageException;
 use Migraine\Traits\StorageCollectionTrait;
 use Migraine\Traits\TaskCollectionTrait;
-use Migraine\Traits\VersionManagerTrait;
 
 /**
  * Class TaskRuntime
@@ -15,8 +14,7 @@ use Migraine\Traits\VersionManagerTrait;
 class TaskRuntime
 {
     use StorageCollectionTrait,
-        TaskCollectionTrait,
-        VersionManagerTrait;
+        TaskCollectionTrait;
 
     /**
      * @var string
