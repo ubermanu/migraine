@@ -34,7 +34,7 @@ class YamlParserTest extends TestCase
      */
     public function testCanParseEmptyTask(): void
     {
-        $migraine = $this->createMigraine('01-default-task.yml');
+        $migraine = $this->createMigraine('01-empty-task.yml');
 
         $this->assertCount(1, $migraine->getTasks());
         $this->assertArrayHasKey('default', $migraine->getTasks());
