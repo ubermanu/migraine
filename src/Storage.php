@@ -77,6 +77,16 @@ class Storage extends \ArrayObject
     }
 
     /**
+     * @param int $offset
+     * @param int $length
+     */
+    public function slice(int $offset, int $length): void
+    {
+        $rows = array_slice($this->getArrayCopy(), $offset, $length);
+        parent::__construct($rows);
+    }
+
+    /**
      * Copy the content of another storage to this one.
      *
      * @param Storage $storage
