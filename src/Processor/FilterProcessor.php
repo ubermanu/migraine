@@ -42,8 +42,17 @@ class FilterProcessor extends AbstractProcessor
     /**
      * @return string
      */
-    protected function getRule(): string
+    public function getRule(): string
     {
         return $this->getData('filter');
+    }
+
+    /**
+     * @param string $rule
+     * @return $this
+     */
+    public function setRule(string $rule): FilterProcessor
+    {
+        return $this->setData('filter', $rule);
     }
 }

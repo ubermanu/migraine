@@ -22,12 +22,12 @@ class ErrorProcessorTest extends AbstractProcessorTest
      */
     public function testCanThrowErrorWithCustomMessage(): void
     {
-        $p = new ErrorProcessor([
-            'error' => 'Error has been thrown!',
-        ]);
+        $p = new ErrorProcessor();
+        $p->setMessage('Error has been thrown!')->setCode(1602422720);
 
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Error has been thrown!');
+        $this->expectExceptionCode(1602422720);
 
         $this->defaultTask->addProcessor($p);
         $this->migraine->execute();

@@ -39,9 +39,9 @@ class IfProcessor extends AbstractProcessor
     /**
      * @return string
      */
-    protected function getCondition(): string
+    public function getCondition(): string
     {
-        return $this->getData('if');
+        return $this->getData('if') ?? $this->getData('condition');
     }
 
     /**

@@ -7,6 +7,10 @@ use Migraine\TaskRuntime;
 
 /**
  * Class FunctionProcessor
+ *
+ * @method string getFunction()
+ * @method $this setFunction(string $function)
+ *
  * @package Migraine\Processor
  */
 class FunctionProcessor extends AbstractProcessor
@@ -17,13 +21,5 @@ class FunctionProcessor extends AbstractProcessor
     public function execute(TaskRuntime $taskRuntime): void
     {
         call_user_func($this->getFunction(), $taskRuntime, $this->data);
-    }
-
-    /**
-     * @return array|string|callable
-     */
-    protected function getFunction()
-    {
-        return $this->getData('function');
     }
 }

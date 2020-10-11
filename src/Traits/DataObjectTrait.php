@@ -39,7 +39,7 @@ trait DataObjectTrait
      * @param mixed $value
      * @return $this
      */
-    public function setData(string $key, $value): DataObjectTrait
+    public function setData(string $key, $value)
     {
         $this->data[$key] = $value;
         return $this;
@@ -49,7 +49,7 @@ trait DataObjectTrait
      * @param string|null $key
      * @return $this
      */
-    public function unsetData(?string $key = null): DataObjectTrait
+    public function unsetData(?string $key = null)
     {
         if (is_null($key)) {
             $this->data = [];
