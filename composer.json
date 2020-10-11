@@ -12,9 +12,17 @@
     "require": {
         "php": ">=7.4.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    },
     "autoload": {
         "psr-4": {
             "Migraine\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Migraine\\Tests\\": "tests/"
         }
     }
 }
