@@ -37,7 +37,7 @@ class Migraine
     public function execute(string $taskName = 'default'): TaskRuntime
     {
         $taskRuntime = $this->createTaskRuntime();
-        $this->getTask($taskName)->execute($taskRuntime);
+        $taskRuntime->execute($taskName);
 
         return $taskRuntime;
     }

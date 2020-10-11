@@ -53,4 +53,13 @@ class TaskRuntime
     {
         return $this->getStorage($this->defaultStorageIdentifier);
     }
+
+    /**
+     * @param string $taskName
+     * @throws Exception\TaskException
+     */
+    public function execute(string $taskName): void
+    {
+        $this->getTask($taskName)->execute($this);
+    }
 }

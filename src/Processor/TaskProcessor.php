@@ -18,7 +18,7 @@ class TaskProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->getTask($this->getTaskName())->execute($taskRuntime);
+        $taskRuntime->execute($this->getTaskName());
     }
 
     /**

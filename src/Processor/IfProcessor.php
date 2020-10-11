@@ -55,7 +55,7 @@ class IfProcessor extends AbstractProcessor
     protected function forward(TaskRuntime $taskRuntime, string $optionName): void
     {
         if ($taskName = $this->options[$optionName] ?? '') {
-            $taskRuntime->getTask($taskName)->execute($taskRuntime);
+            $taskRuntime->execute($taskName);
         }
     }
 }
