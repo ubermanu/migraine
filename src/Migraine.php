@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Migraine;
 
 use Migraine\Traits\StorageCollectionTrait;
+use Migraine\Traits\TaskCollectionTrait;
 
 /**
  * Class Migraine
@@ -15,6 +16,7 @@ class Migraine
      * Traits
      */
     use StorageCollectionTrait;
+    use TaskCollectionTrait;
 
     /**
      * @var string
@@ -22,16 +24,12 @@ class Migraine
     protected string $version = '2';
 
     /**
-     * @var Task[]
-     */
-    protected array $tasks = [];
-
-    /**
      * Migraine constructor.
      */
     public function __construct()
     {
         $this->initializeStorageCollection();
+        $this->initializeTaskCollection();
     }
 
     /**
@@ -40,14 +38,6 @@ class Migraine
     public function getVersion(): string
     {
         return $this->version;
-    }
-
-    /**
-     * @return Task[]
-     */
-    public function getTasks(): array
-    {
-        return $this->tasks;
     }
 
     /**
