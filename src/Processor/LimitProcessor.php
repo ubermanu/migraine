@@ -18,8 +18,12 @@ use Migraine\TaskRuntime;
  */
 class LimitProcessor extends AbstractProcessor
 {
+    /**
+     * @var array
+     */
     protected array $data = [
         'length' => 0,
+        'storage' => null,
     ];
 
     /**

@@ -8,6 +8,11 @@ use Migraine\TaskRuntime;
 
 /**
  * Class SelectProcessor
+ *
+ * @method $this setColumns(array $columns)
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ *
  * @package Migraine\Processor
  */
 class SelectProcessor extends AbstractProcessor
@@ -18,16 +23,18 @@ class SelectProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        foreach ($this->getStorageOrDefault($taskRuntime, 'in') as &$record) {
-            $record = array_intersect_key($record, array_flip($this->getSelectedKeys()));
+        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+
+        foreach ($storage as &$record) {
+            $record = array_intersect_key($record, array_flip($this->getColumns()));
         }
     }
 
     /**
      * @return array
      */
-    protected function getSelectedKeys(): array
+    protected function getColumns(): array
     {
-        return array_values($this->getData('select'));
+        return array_values($this->getData('columns'));
     }
 }

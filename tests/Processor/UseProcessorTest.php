@@ -24,9 +24,8 @@ class UseProcessorTest extends AbstractProcessorTest
     {
         $this->migraine->addStorage('test-foo-bar', new Storage());
 
-        $p = new UseProcessor([
-            'use' => 'test-foo-bar',
-        ]);
+        $p = new UseProcessor();
+        $p->setStorage('test-foo-bar');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();

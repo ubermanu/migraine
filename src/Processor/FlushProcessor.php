@@ -17,6 +17,13 @@ use Migraine\TaskRuntime;
 class FlushProcessor extends AbstractProcessor
 {
     /**
+     * @var array
+     */
+    protected array $data = [
+        'storage' => null,
+    ];
+
+    /**
      * @inheritdoc
      * @throws StorageException
      */

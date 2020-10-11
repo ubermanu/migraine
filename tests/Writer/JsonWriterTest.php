@@ -18,13 +18,11 @@ class JsonWriterTest extends AbstractWriterTest
      */
     public function testWriteFile(): void
     {
-        $options = [
-            'write' => $this->tempDir . '/file.json',
-        ];
-
         $r = new TaskRuntime();
         $t = new Task();
-        $w = new WriteProcessor($options);
+        $w = new WriteProcessor();
+        $w->setResourceName($this->tempDir . '/file.json');
+
         $t->addProcessor($w);
         $t->execute($r);
     }

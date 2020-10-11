@@ -11,10 +11,30 @@ use Migraine\TaskRuntime;
 
 /**
  * Class IfProcessor
+ *
+ * @method string getCondition()
+ * @method $this setCondition(string $condition)
+ * @method string getThen()
+ * @method $this setThen(string $task)
+ * @method string getElse()
+ * @method $this setElse(string $task)
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ *
  * @package Migraine\Processor
  */
 class IfProcessor extends AbstractProcessor
 {
+    /**
+     * @var array
+     */
+    protected array $data = [
+        'condition' => null,
+        'then' => null,
+        'else' => null,
+        'storage' => null,
+    ];
+
     /**
      * @inheritdoc
      * @throws StorageException
@@ -22,26 +42,17 @@ class IfProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
         $ruler = new Ruler();
 
         // TODO: Give more values to the context
         $context = new Context();
-        $context['storage'] = $storage;
+        $context['storage'] = $this->getStorageOrDefault($taskRuntime, 'storage');
 
         if ($ruler->assert($this->getCondition(), $context)) {
             $this->forward($taskRuntime, 'then');
         } else {
             $this->forward($taskRuntime, 'else');
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getCondition(): string
-    {
-        return $this->getData('if') ?? $this->getData('condition');
     }
 
     /**
@@ -54,7 +65,7 @@ class IfProcessor extends AbstractProcessor
      */
     protected function forward(TaskRuntime $taskRuntime, string $optionName): void
     {
-        if ($taskName = $this->getData($optionName) ?? '') {
+        if ($taskName = $this->getData($optionName)) {
             $taskRuntime->execute($taskName);
         }
     }

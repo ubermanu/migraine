@@ -19,8 +19,8 @@ class DumpProcessor extends AbstractProcessor
     public function execute(TaskRuntime $taskRuntime): void
     {
         // TODO: Add support for some writers types
-        $storage = $this->getStorageOrDefault($taskRuntime, 'dump');
-        print_r(iterator_to_array($storage));
+        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        print_r($storage->toArray());
         exit;
     }
 }

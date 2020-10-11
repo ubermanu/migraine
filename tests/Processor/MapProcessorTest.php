@@ -26,13 +26,12 @@ class MapProcessorTest extends AbstractProcessorTest
 
         $this->migraine->addStorage('test', new Storage($data));
 
-        $p = new MapProcessor([
-            'map' => [
-                'id' => 'userId',
-                'name' => 'firstName',
-            ],
-            'in' => 'test',
+        $p = new MapProcessor();
+        $p->setMapping([
+            'id' => 'userId',
+            'name' => 'firstName',
         ]);
+        $p->setStorage('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();

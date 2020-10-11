@@ -8,6 +8,10 @@ use Migraine\TaskRuntime;
 
 /**
  * Class TaskProcessor
+ *
+ * @method string getTask()
+ * @method $this setTask(string $task)
+ *
  * @package Migraine\Processor
  */
 class TaskProcessor extends AbstractProcessor
@@ -18,14 +22,6 @@ class TaskProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->execute($this->getTaskName());
-    }
-
-    /**
-     * @return string
-     */
-    protected function getTaskName(): string
-    {
-        return $this->getData('task');
+        $taskRuntime->execute($this->getTask());
     }
 }

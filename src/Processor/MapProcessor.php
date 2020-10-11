@@ -8,17 +8,33 @@ use Migraine\TaskRuntime;
 
 /**
  * Class MapProcessor
+ *
+ * @method array getMapping()
+ * @method $this setMapping(array $mapping)
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ *
  * @package Migraine\Processor
  */
 class MapProcessor extends AbstractProcessor
 {
+    /**
+     * @var array
+     */
+    protected array $data = [
+        'mapping' => null,
+        'storage' => null,
+    ];
+
     /**
      * @inheritdoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        foreach ($this->getStorageOrDefault($taskRuntime, 'in') as &$record) {
+        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+
+        foreach ($storage as &$record) {
 
             // Backup current record
             $baseRecord = $record;
@@ -33,13 +49,5 @@ class MapProcessor extends AbstractProcessor
                 }
             }
         }
-    }
-
-    /**
-     * @return array
-     */
-    protected function getMapping(): array
-    {
-        return $this->getData('map');
     }
 }

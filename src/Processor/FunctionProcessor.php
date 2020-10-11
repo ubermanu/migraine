@@ -16,6 +16,13 @@ use Migraine\TaskRuntime;
 class FunctionProcessor extends AbstractProcessor
 {
     /**
+     * @var array
+     */
+    protected array $data = [
+        'function' => null,
+    ];
+
+    /**
      * @inheritdoc
      */
     public function execute(TaskRuntime $taskRuntime): void

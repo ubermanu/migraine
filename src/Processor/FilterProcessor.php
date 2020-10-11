@@ -25,6 +25,14 @@ use Migraine\TaskRuntime;
 class FilterProcessor extends AbstractProcessor
 {
     /**
+     * @var array
+     */
+    protected array $data = [
+        'storage' => null,
+        'rule' => null,
+    ];
+
+    /**
      * @inheritdoc
      * @throws StorageException
      */

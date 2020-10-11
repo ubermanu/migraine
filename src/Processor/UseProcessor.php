@@ -6,6 +6,10 @@ use Migraine\TaskRuntime;
 
 /**
  * Class UseProcessor
+ *
+ * @method string getStorage()
+ * @method $this setStorage(string $storage)
+ *
  * @package Migraine\Processor
  */
 class UseProcessor extends AbstractProcessor
@@ -15,14 +19,6 @@ class UseProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->setDefaultStorageIdentifier($this->getStorageIdentifier());
-    }
-
-    /**
-     * @return string
-     */
-    protected function getStorageIdentifier(): string
-    {
-        return $this->getData('use');
+        $taskRuntime->setDefaultStorageIdentifier($this->getStorage());
     }
 }
