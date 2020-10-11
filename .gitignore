@@ -3,3 +3,4 @@
 /composer.lock
 migraine.yml
 migraine.yaml
+/.phpunit*
