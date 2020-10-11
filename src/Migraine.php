@@ -5,6 +5,7 @@ namespace Migraine;
 
 use Migraine\Traits\StorageCollectionTrait;
 use Migraine\Traits\TaskCollectionTrait;
+use Migraine\Traits\VersionManagerTrait;
 
 /**
  * Class Migraine
@@ -12,16 +13,9 @@ use Migraine\Traits\TaskCollectionTrait;
  */
 class Migraine
 {
-    /**
-     * Traits
-     */
-    use StorageCollectionTrait;
-    use TaskCollectionTrait;
-
-    /**
-     * @var string
-     */
-    protected string $version = '2';
+    use StorageCollectionTrait,
+        TaskCollectionTrait,
+        VersionManagerTrait;
 
     /**
      * Migraine constructor.
@@ -30,14 +24,6 @@ class Migraine
     {
         $this->initializeStorageCollection();
         $this->initializeTaskCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getVersion(): string
-    {
-        return $this->version;
     }
 
     /**
