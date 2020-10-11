@@ -3,12 +3,19 @@ declare(strict_types=1);
 
 namespace Migraine;
 
+use Migraine\Traits\StorageCollectionTrait;
+
 /**
  * Class Migraine
  * @package Migraine
  */
 class Migraine
 {
+    /**
+     * Traits
+     */
+    use StorageCollectionTrait;
+
     /**
      * @var string
      */
@@ -20,22 +27,11 @@ class Migraine
     protected array $tasks = [];
 
     /**
-     * @var Storage[]
-     */
-    protected array $storages = [];
-
-    /**
-     * @var string
-     */
-    protected string $defaultStorageIdentifier;
-
-    /**
      * Migraine constructor.
      */
     public function __construct()
     {
-        $this->defaultStorageIdentifier = 'storage-' . md5(microtime());
-//        $this->addStorage(new Storage(), $this->defaultStorageIdentifier);
+        $this->initializeStorageCollection();
     }
 
     /**
@@ -52,14 +48,6 @@ class Migraine
     public function getTasks(): array
     {
         return $this->tasks;
-    }
-
-    /**
-     * @return Storage[]
-     */
-    public function getStorages(): array
-    {
-        return $this->storages;
     }
 
     /**
