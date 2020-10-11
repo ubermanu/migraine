@@ -60,4 +60,17 @@ final class MigraineTest extends TestCase
         $m->addTask('default', $t);
         $m->addTask('default', $t);
     }
+
+    /**
+     * @doesNotPerformAssertions
+     * @throws TaskException
+     */
+    public function testCanRunTask(): void
+    {
+        $m = new Migraine();
+        $t = new Task();
+
+        $m->addTask('default', $t);
+        $m->execute('default');
+    }
 }

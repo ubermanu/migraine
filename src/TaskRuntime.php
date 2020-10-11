@@ -22,13 +22,4 @@ class TaskRuntime
     {
         $this->migraine = $migraine;
     }
-
-    public function execute()
-    {
-//        $this->migraine->getTasks()
-
-//        if (empty(tasks[$taskName])) {
-//            throw new Exception(sprintf('The task "%s" does not exist!', $taskName));
-//        }
-    }
 }

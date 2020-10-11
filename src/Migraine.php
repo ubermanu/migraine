@@ -38,9 +38,11 @@ class Migraine
      * Create a runtime proxy, then execute the given task.
      *
      * @param string $taskName
+     * @throws Exception\TaskException
      */
     public function execute(string $taskName = 'default')
     {
-//        $taskRuntime = $this->createTaskRuntime($this)->execute($taskName);
+        $taskRuntime = $this->createTaskRuntime();
+        $this->getTask($taskName)->execute($taskRuntime);
     }
 }
