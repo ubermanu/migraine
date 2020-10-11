@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
+use Migraine\Exception\StorageException;
 use Migraine\TaskRuntime;
 
 /**
@@ -13,6 +14,7 @@ class DumpProcessor extends AbstractProcessor
 {
     /**
      * @inheritdoc
+     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {

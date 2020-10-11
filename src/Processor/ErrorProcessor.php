@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Exception\ProcessorException;
+use Migraine\Exception\ErrorException;
 use Migraine\TaskRuntime;
 
 /**
@@ -14,11 +14,11 @@ class ErrorProcessor extends AbstractProcessor
 {
     /**
      * @inheritdoc
-     * @throws ProcessorException
+     * @throws ErrorException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        throw new ProcessorException($this->getMessage(), $this->getCode(), $this->getSeverity());
+        throw new ErrorException($this->getMessage(), $this->getCode(), $this->getSeverity());
     }
 
     /**
