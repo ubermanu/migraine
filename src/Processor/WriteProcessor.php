@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\TaskRuntime;
-use Migraine\Processor\Traits\ResourceProcessorTrait;
+use Migraine\Processor\Traits\IOProcessorTrait;
 use Migraine\Writer\AbstractWriter;
 
 /**
@@ -13,7 +13,7 @@ use Migraine\Writer\AbstractWriter;
  */
 class WriteProcessor extends AbstractProcessor
 {
-    use ResourceProcessorTrait;
+    use IOProcessorTrait;
 
     /**
      * @return string

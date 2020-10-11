@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Migraine\Processor\Traits;
 
 /**
- * Trait ResourceProcessorTrait
+ * Trait IOProcessorTrait
  * @package Migraine\Processor\Traits
  */
-trait ResourceProcessorTrait
+trait IOProcessorTrait
 {
     /**
      * @return string
