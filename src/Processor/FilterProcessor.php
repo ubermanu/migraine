@@ -15,30 +15,17 @@ use Migraine\TaskRuntime;
  * If it does not match, remove the row.
  * @see https://hoa-project.net/En/Literature/Hack/Ruler.html
  *
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- * @method string getRule()
- * @method $this setRule(string $rule)
- *
  * @package Migraine\Processor
  */
 class FilterProcessor extends AbstractProcessor
 {
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'storage' => null,
-        'rule' => null,
-    ];
-
     /**
      * @inheritdoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
         $ruler = new Ruler();
 
         for ($i = 0, $l = $storage->size(); $i < $l; $i++) {
@@ -50,5 +37,39 @@ class FilterProcessor extends AbstractProcessor
 
         // TODO: Refresh keys
         $storage->copy($storage);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRule(): string
+    {
+        return $this->getData('filter');
+    }
+
+    /**
+     * @param string $rule
+     * @return $this
+     */
+    public function setRule(string $rule): self
+    {
+        return $this->setData('filter', $rule);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStorage(): string
+    {
+        return $this->getData('in');
+    }
+
+    /**
+     * @param string $storage
+     * @return $this
+     */
+    public function setStorage(string $storage): self
+    {
+        return $this->setData('in', $storage);
     }
 }

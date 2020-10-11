@@ -10,24 +10,11 @@ use Migraine\Writer\AbstractWriter;
 
 /**
  * Class WriteProcessor
- *
- * @method $this setResourceName(string $resourceName)
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- *
  * @package Migraine\Processor
  */
 class WriteProcessor extends AbstractProcessor
 {
     use IOProcessorTrait;
-
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'resource_name' => null,
-        'storage' => null,
-    ];
 
     /**
      * @inheritdoc
@@ -52,6 +39,32 @@ class WriteProcessor extends AbstractProcessor
      */
     protected function getResourceName(): string
     {
-        return $this->getData('resource_name');
+        return $this->getData('write');
+    }
+
+    /**
+     * @param string $resourceName
+     * @return $this
+     */
+    public function setResourceName(string $resourceName): self
+    {
+        return $this->setData('write', $resourceName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStorage(): string
+    {
+        return $this->getData('from');
+    }
+
+    /**
+     * @param string $storage
+     * @return $this
+     */
+    public function setStorage(string $storage): self
+    {
+        return $this->setData('from', $storage);
     }
 }

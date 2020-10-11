@@ -12,8 +12,6 @@ use Migraine\TaskRuntime;
 /**
  * Class IfProcessor
  *
- * @method string getCondition()
- * @method $this setCondition(string $condition)
  * @method string getThen()
  * @method $this setThen(string $task)
  * @method string getElse()
@@ -25,16 +23,6 @@ use Migraine\TaskRuntime;
  */
 class IfProcessor extends AbstractProcessor
 {
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'condition' => null,
-        'then' => null,
-        'else' => null,
-        'storage' => null,
-    ];
-
     /**
      * @inheritdoc
      * @throws StorageException
@@ -68,5 +56,22 @@ class IfProcessor extends AbstractProcessor
         if ($taskName = $this->getData($optionName)) {
             $taskRuntime->execute($taskName);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getCondition(): string
+    {
+        return $this->getData('if');
+    }
+
+    /**
+     * @param string $condition
+     * @return $this
+     */
+    public function setCondition(string $condition): self
+    {
+        return $this->setData('if', $condition);
     }
 }

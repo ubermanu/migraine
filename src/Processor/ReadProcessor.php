@@ -10,24 +10,11 @@ use Migraine\TaskRuntime;
 
 /**
  * Class ReadProcessor
- *
- * @method $this setResourceName(string $resourceName)
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- *
  * @package Migraine\Processor
  */
 class ReadProcessor extends AbstractProcessor
 {
     use IOProcessorTrait;
-
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'resource_name' => null,
-        'storage' => null,
-    ];
 
     /**
      * @param TaskRuntime $taskRuntime
@@ -44,14 +31,40 @@ class ReadProcessor extends AbstractProcessor
         $reader = new $className();
         $storage = $reader->read($this->getResourceName(), $this->getResourceOptions());
 
-        $this->getStorageOrDefault($taskRuntime, 'storage')->copy($storage);
+        $this->getStorageOrDefault($taskRuntime, 'from')->copy($storage);
     }
 
     /**
      * @return string
      */
-    protected function getResourceName(): string
+    public function getResourceName(): string
     {
-        return $this->getData('resource_name');
+        return $this->getData('read');
+    }
+
+    /**
+     * @param string $resourceName
+     * @return $this
+     */
+    public function setResourceName(string $resourceName): self
+    {
+        return $this->setData('read', $resourceName);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStorage(): string
+    {
+        return $this->getData('in');
+    }
+
+    /**
+     * @param string $storage
+     * @return $this
+     */
+    public function setStorage(string $storage): self
+    {
+        return $this->setData('in', $storage);
     }
 }

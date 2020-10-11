@@ -8,31 +8,17 @@ use Migraine\TaskRuntime;
 
 /**
  * Class MapProcessor
- *
- * @method array getMapping()
- * @method $this setMapping(array $mapping)
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- *
  * @package Migraine\Processor
  */
 class MapProcessor extends AbstractProcessor
 {
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'mapping' => null,
-        'storage' => null,
-    ];
-
     /**
      * @inheritdoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
 
         foreach ($storage as &$record) {
 
@@ -49,5 +35,39 @@ class MapProcessor extends AbstractProcessor
                 }
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getMapping(): array
+    {
+        return $this->getData('map');
+    }
+
+    /**
+     * @param array $mapping
+     * @return $this
+     */
+    public function setMapping(array $mapping): self
+    {
+        return $this->setData('map', $mapping);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStorage(): string
+    {
+        return $this->getData('in');
+    }
+
+    /**
+     * @param string $storage
+     * @return $this
+     */
+    public function setStorage(string $storage): self
+    {
+        return $this->setData('in', $storage);
     }
 }

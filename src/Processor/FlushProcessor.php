@@ -8,27 +8,33 @@ use Migraine\TaskRuntime;
 
 /**
  * Class FlushProcessor
- *
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- *
  * @package Migraine\Processor
  */
 class FlushProcessor extends AbstractProcessor
 {
-    /**
-     * @var array
-     */
-    protected array $data = [
-        'storage' => null,
-    ];
-
     /**
      * @inheritdoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $this->getStorageOrDefault($taskRuntime, 'storage')->flush();
+        $this->getStorageOrDefault($taskRuntime, 'flush')->flush();
+    }
+
+    /**
+     * @return string
+     */
+    public function getStorage(): string
+    {
+        return $this->getData('flush');
+    }
+
+    /**
+     * @param string $storage
+     * @return $this
+     */
+    public function setStorage(string $storage): self
+    {
+        return $this->setData('flush', $storage);
     }
 }

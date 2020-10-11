@@ -9,8 +9,6 @@ use Migraine\TaskRuntime;
 /**
  * Class ErrorProcessor
  *
- * @method string getMessage()
- * @method $this setMessage(string $message)
  * @method int getCode()
  * @method $this setCode(int $code)
  * @method int getSeverity()
@@ -24,7 +22,6 @@ class ErrorProcessor extends AbstractProcessor
      * @var array
      */
     protected array $data = [
-        'message' => null,
         'code' => 0,
         'severity' => 1,
     ];
@@ -36,5 +33,22 @@ class ErrorProcessor extends AbstractProcessor
     public function execute(TaskRuntime $taskRuntime): void
     {
         throw new ErrorException($this->getMessage(), $this->getCode(), $this->getSeverity());
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->getData('error');
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setMessage(string $message): self
+    {
+        return $this->setData('error', $message);
     }
 }
