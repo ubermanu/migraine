@@ -1,6 +1,6 @@
 {
     "name": "migraine/migraine",
-    "description": "Task runner oriented on data migration.",
+    "description": "Task runner oriented on data migration",
     "license": "MIT",
     "authors": [
         {
