@@ -8,25 +8,11 @@ if (file_exists(__DIR__ . '/../autoload.php')) {
     require_once __DIR__ . '/../../../autoload.php';
 }
 
-use CommandoX\Command;
-use Migraine\Configuration\YamlParser;
+use Symfony\Component\Console\Application;
+use Migraine\Console\ExecuteCommand;
 
-$cmd = new Command();
-
-$cmd->option()
-    ->aka('task')
-    ->default('default')
-    ->describedAs('Task name');
-
-$cmd->option('c')
-    ->aka('config')
-    ->default('migraine.yml')
-    ->describedAs('Configuration filename');
-
-try {
-    $config = new YamlParser(file_get_contents($cmd['config']));
-    $migraine = $config->parse()->getMigraine();
-    $migraine->execute($cmd['task']);
-} catch (\Exception $exception) {
-    echo 'ERROR: ' . $exception->getMessage() . PHP_EOL;
-}
+(new Application('migraine'))
+    ->add(new ExecuteCommand())
+    ->getApplication()
+    ->setDefaultCommand('migraine:execute', true)
+    ->run();
