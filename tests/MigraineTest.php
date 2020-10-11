@@ -4,19 +4,22 @@ declare(strict_types=1);
 namespace Migraine\Tests;
 
 use Migraine\Exception\StorageException;
+use Migraine\Exception\TaskException;
 use Migraine\Migraine;
 use Migraine\Storage;
+use Migraine\Task;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class StorageCollectionTest
+ * Class MigraineTest
  * @package Migraine\Tests
  */
-final class StorageCollectionTest extends TestCase
+final class MigraineTest extends TestCase
 {
     public function testHasStorageCollection(): void
     {
         $m = new Migraine();
+
         $this->assertIsArray($m->getStorages());
     }
 
@@ -34,7 +37,27 @@ final class StorageCollectionTest extends TestCase
     public function testHasDefaultStorage(): void
     {
         $m = new Migraine();
+
         $this->assertCount(1, $m->getStorages());
         $this->assertInstanceOf(Storage::class, $m->getDefaultStorage());
+    }
+
+    public function testHasTaskCollection(): void
+    {
+        $m = new Migraine();
+
+        $this->assertIsArray($m->getTasks());
+        $this->assertCount(0, $m->getTasks());
+    }
+
+    public function testCannotAddExistingTask(): void
+    {
+        $m = new Migraine();
+        $t = new Task();
+
+        $this->expectException(TaskException::class);
+
+        $m->addTask('default', $t);
+        $m->addTask('default', $t);
     }
 }
