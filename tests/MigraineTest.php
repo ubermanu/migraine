@@ -16,54 +16,55 @@ use PHPUnit\Framework\TestCase;
  */
 final class MigraineTest extends TestCase
 {
-    public function testHasStorageCollection(): void
-    {
-        $m = new Migraine();
+    /**
+     * @var Migraine
+     */
+    protected Migraine $migraine;
 
-        $this->assertIsArray($m->getStorages());
-        $this->assertCount(0, $m->getStorages());
+    protected function setUp(): void
+    {
+        $this->migraine = new Migraine();
     }
 
+    public function testHasStorageCollection(): void
+    {
+        $this->assertIsArray($this->migraine->getStorages());
+        $this->assertCount(0, $this->migraine->getStorages());
+    }
+
+    /**
+     * @throws StorageException
+     */
     public function testCannotAddExistingStorage(): void
     {
-        $m = new Migraine();
-        $s = new Storage();
-
         $this->expectException(StorageException::class);
 
-        $m->addStorage('test', $s);
-        $m->addStorage('test', $s);
+        $this->migraine->addStorage('test', new Storage());
+        $this->migraine->addStorage('test', new Storage());
     }
 
     public function testHasTaskCollection(): void
     {
-        $m = new Migraine();
-
-        $this->assertIsArray($m->getTasks());
-        $this->assertCount(0, $m->getTasks());
+        $this->assertIsArray($this->migraine->getTasks());
+        $this->assertCount(0, $this->migraine->getTasks());
     }
 
     public function testCannotAddExistingTask(): void
     {
-        $m = new Migraine();
-        $t = new Task();
-
         $this->expectException(TaskException::class);
 
-        $m->addTask('default', $t);
-        $m->addTask('default', $t);
+        $this->migraine->addTask('default', new Task());
+        $this->migraine->addTask('default', new Task());
     }
 
     /**
      * @doesNotPerformAssertions
+     * @throws StorageException
      * @throws TaskException
      */
     public function testCanRunTask(): void
     {
-        $m = new Migraine();
-        $t = new Task();
-
-        $m->addTask('default', $t);
-        $m->execute('default');
+        $this->migraine->addTask('default', new Task());
+        $this->migraine->execute('default');
     }
 }
