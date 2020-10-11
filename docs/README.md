@@ -5,7 +5,7 @@ It's a tool to migrate and transform data sources into a certain destination.
 
 ## Install
 
-    $ composer global require ubermanu/migraine:dev-master
+    $ composer global require ubermanu/migraine
 
 ## Quick start
 
