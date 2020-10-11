@@ -3,33 +3,27 @@ declare(strict_types=1);
 
 namespace Migraine\Configuration;
 
-use Migraine\Migraine;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class YamlParser
  * @package Migraine\Configuration
  */
-class YamlParser
+class YamlParser extends AbstractParser
 {
     /**
-     * @var string
+     * @var array
      */
-    protected string $configuration = '';
-
-    /**
-     * @var Migraine
-     */
-    protected Migraine $migraine;
+    protected array $configuration;
 
     /**
      * YamlParser constructor.
-     * @param string $configuration
+     * @param string $content
      */
-    public function __construct(string $configuration)
+    public function __construct(string $content)
     {
-        $this->configuration = Yaml::parseFile($configuration);
-        $this->migraine = new Migraine();
+        $this->configuration = Yaml::parse($content, Yaml::PARSE_CUSTOM_TAGS);
+        parent::__construct();
     }
 
     /**
@@ -39,13 +33,5 @@ class YamlParser
     {
         // TODO: Parse configuration content with TagResolver
         return $this;
-    }
-
-    /**
-     * @return Migraine
-     */
-    public function getMigraine(): Migraine
-    {
-        return $this->migraine;
     }
 }
