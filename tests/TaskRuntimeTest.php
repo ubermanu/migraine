@@ -17,18 +17,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class TaskRuntimeTest extends TestCase
 {
-    public function testCanCreateTaskRuntime(): void
-    {
-        $r = $this->createMock(TaskRuntime::class);
-
-        $this->assertCount(0, $r->getTasks());
-        $this->assertCount(0, $r->getStorages());
-    }
-
     public function testHasDefaultStorage(): void
     {
-        $m = new Migraine();
-        $r = new TaskRuntime($m);
+        $r = new TaskRuntime();
 
         $this->assertCount(1, $r->getStorages());
         $this->assertInstanceOf(Storage::class, $r->getDefaultStorage());
