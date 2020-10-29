@@ -95,8 +95,9 @@ class YamlParser extends AbstractParser
         $processorType = current(array_keys($processorConfig));
 
         // TODO: Override by settings
-        $className = '\\Migraine\\Processor\\' . ucfirst($processorType) . 'Processor';
+        $factoryClass = '\\Migraine\\Configuration\\Yaml\\Processor\\' . ucfirst($processorType) . 'ProcessorFactory';
+        $factory = new $factoryClass($processorConfig);
 
-        return new $className($processorConfig);
+        return $factory->create();
     }
 }
