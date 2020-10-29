@@ -31,7 +31,7 @@ class SelectProcessorTest extends AbstractProcessorTest
 
         $p = new SelectProcessor();
         $p->setColumns(['id']);
-        $p->setStorage('test');
+        $p->setStorageId('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();
