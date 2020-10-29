@@ -56,6 +56,7 @@ abstract class AbstractProcessorFactory
             if (array_key_exists($option, $this->mapProps)) {
                 $prop = $this->mapProps[$option];
                 $properties[$prop] = $value;
+                unset($properties[$option]);
             } else {
                 $properties[$option] = $value;
             }
