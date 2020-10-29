@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Storage;
+use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -12,10 +13,7 @@ use Migraine\TaskRuntime;
  */
 class MapProcessor extends AbstractProcessor
 {
-    /**
-     * @var Storage
-     */
-    protected Storage $storage;
+    use HasOptionalStorageId;
 
     /**
      * @var array
@@ -23,11 +21,12 @@ class MapProcessor extends AbstractProcessor
     protected array $mapping;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        foreach ($this->getStorage() as &$record) {
+        foreach ($this->getStorageOrDefault($taskRuntime, $this->getStorageId()) as &$record) {
 
             // Backup current record
             $baseRecord = $record;
@@ -42,22 +41,6 @@ class MapProcessor extends AbstractProcessor
                 }
             }
         }
-    }
-
-    /**
-     * @return Storage
-     */
-    public function getStorage(): Storage
-    {
-        return $this->storage;
-    }
-
-    /**
-     * @param Storage $storage
-     */
-    public function setStorage(Storage $storage): void
-    {
-        $this->storage = $storage;
     }
 
     /**

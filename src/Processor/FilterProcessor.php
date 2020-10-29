@@ -6,6 +6,7 @@ namespace Migraine\Processor;
 use Hoa\Ruler\Context;
 use Hoa\Ruler\Ruler;
 use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -19,13 +20,20 @@ use Migraine\TaskRuntime;
  */
 class FilterProcessor extends AbstractProcessor
 {
+    use HasOptionalStorageId;
+
     /**
-     * @inheritdoc
+     * @var string
+     */
+    protected string $rule;
+
+    /**
+     * @inheritDoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
+        $storage = $this->getStorageOrDefault($taskRuntime, $this->getStorageId());
         $ruler = new Ruler();
 
         for ($i = 0, $l = $storage->size(); $i < $l; $i++) {
@@ -54,22 +62,5 @@ class FilterProcessor extends AbstractProcessor
     public function setRule(string $rule): self
     {
         return $this->setData('filter', $rule);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('in');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('in', $storage);
     }
 }

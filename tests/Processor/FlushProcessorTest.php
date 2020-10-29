@@ -29,7 +29,7 @@ class FlushProcessorTest extends AbstractProcessorTest
         ]);
 
         $processor = new FlushProcessor();
-        $processor->setStorage($storage);
+        $processor->setStorageId($storage);
 
         $this->assertCount(7, $storage);
         $processor->execute(new TaskRuntime());

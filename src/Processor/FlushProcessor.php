@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Storage;
+use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -12,32 +13,14 @@ use Migraine\TaskRuntime;
  */
 class FlushProcessor extends AbstractProcessor
 {
-    /**
-     * @var Storage
-     */
-    protected Storage $storage;
+    use HasOptionalStorageId;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $this->getStorage()->flush();
-    }
-
-    /**
-     * @return Storage
-     */
-    public function getStorage(): Storage
-    {
-        return $this->storage;
-    }
-
-    /**
-     * @param Storage $storage
-     */
-    public function setStorage(Storage $storage): void
-    {
-        $this->storage = $storage;
+        $this->getStorageOrDefault($taskRuntime, $this->getStorageId())->flush();
     }
 }

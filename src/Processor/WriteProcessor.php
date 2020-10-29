@@ -17,7 +17,7 @@ class WriteProcessor extends AbstractProcessor
     use IOProcessorTrait;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void

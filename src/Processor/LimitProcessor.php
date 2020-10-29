@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Storage;
+use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -12,10 +13,7 @@ use Migraine\TaskRuntime;
  */
 class LimitProcessor extends AbstractProcessor
 {
-    /**
-     * @var Storage
-     */
-    protected Storage $storage;
+    use HasOptionalStorageId;
 
     /**
      * @var int
@@ -23,27 +21,12 @@ class LimitProcessor extends AbstractProcessor
     protected int $length;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $this->getStorage()->slice(0, $this->getLength());
-    }
-
-    /**
-     * @return Storage
-     */
-    public function getStorage(): Storage
-    {
-        return $this->storage;
-    }
-
-    /**
-     * @param Storage $storage
-     */
-    public function setStorage(Storage $storage): void
-    {
-        $this->storage = $storage;
+        $this->getStorageOrDefault($taskRuntime, $this->getStorageId())->slice(0, $this->getLength());
     }
 
     /**

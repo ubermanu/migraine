@@ -15,30 +15,30 @@ class TaskProcessor extends AbstractProcessor
     /**
      * @var string
      */
-    protected string $identifier;
+    protected string $taskId;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @throws TaskException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->execute($this->getIdentifier());
+        $taskRuntime->execute($this->getTaskId());
     }
 
     /**
      * @return string
      */
-    public function getIdentifier(): string
+    public function getTaskId(): string
     {
-        return $this->identifier;
+        return $this->taskId;
     }
 
     /**
-     * @param string $identifier
+     * @param string $taskId
      */
-    public function setIdentifier(string $identifier): void
+    public function setTaskId(string $taskId): void
     {
-        $this->identifier = $identifier;
+        $this->taskId = $taskId;
     }
 }

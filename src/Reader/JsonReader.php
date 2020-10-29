@@ -15,7 +15,7 @@ class JsonReader extends AbstractReader
     use FileReaderTrait;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function createStorage(string $filename, array $options): Storage
     {

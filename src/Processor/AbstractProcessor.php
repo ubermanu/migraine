@@ -26,25 +26,26 @@ abstract class AbstractProcessor
     }
 
     /**
-     * Execute the
+     * Execute the processor.
      * @param TaskRuntime $taskRuntime
      * @return mixed
      */
     public abstract function execute(TaskRuntime $taskRuntime);
 
     /**
-     * Get a storage using an option value as identifier.
-     * If the option does not exist, select the default storage.
+     * If the storage does not exists, returns the default one.
      *
      * @param TaskRuntime $taskRuntime
-     * @param string $optionName
+     * @param string|null $storageId
      * @return Storage
      * @throws StorageException
      */
-    protected function getStorageOrDefault(TaskRuntime $taskRuntime, string $optionName): Storage
+    protected function getStorageOrDefault(TaskRuntime $taskRuntime, ?string $storageId): Storage
     {
-        return $this->hasData($optionName)
-            ? $taskRuntime->getStorage($this->getData($optionName))
-            : $taskRuntime->getDefaultStorage();
+        try {
+            return $taskRuntime->getStorage($storageId);
+        } catch (StorageException $e) {
+            return $taskRuntime->getDefaultStorage();
+        }
     }
 }

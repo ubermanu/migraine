@@ -17,7 +17,7 @@ class ReadProcessor extends AbstractProcessor
     use IOProcessorTrait;
 
     /**
-     * @param TaskRuntime $taskRuntime
+     * @inheritDoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void

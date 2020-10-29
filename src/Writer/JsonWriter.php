@@ -15,7 +15,7 @@ class JsonWriter extends AbstractWriter
     use FileWriterTrait;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function encodeStorage(Storage $storage, array $options): string
     {

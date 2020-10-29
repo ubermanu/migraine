@@ -27,7 +27,7 @@ class MergeProcessor extends AbstractProcessor
     ];
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void

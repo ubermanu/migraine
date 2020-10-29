@@ -12,7 +12,7 @@ use Migraine\Storage;
 trait FileWriterTrait
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function write(Storage $storage, ?string $resource, array $options): void
     {

@@ -12,7 +12,7 @@ use Migraine\Storage;
 trait FileReaderTrait
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function read(?string $resource, array $options): Storage
     {

@@ -2,6 +2,7 @@
 
 namespace Migraine\Processor;
 
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -10,32 +11,13 @@ use Migraine\TaskRuntime;
  */
 class UseProcessor extends AbstractProcessor
 {
-    /**
-     * @var string
-     */
-    protected string $identifier;
+    use HasOptionalStorageId;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->setDefaultStorageIdentifier($this->getIdentifier());
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier): void
-    {
-        $this->identifier = $identifier;
+        $taskRuntime->setDefaultStorageIdentifier($this->getStorageId());
     }
 }

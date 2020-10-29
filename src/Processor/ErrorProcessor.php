@@ -28,7 +28,7 @@ class ErrorProcessor extends AbstractProcessor
     protected int $severity = 1;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      * @throws ErrorException
      */
     public function execute(TaskRuntime $taskRuntime): void

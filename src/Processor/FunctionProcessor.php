@@ -22,7 +22,7 @@ class FunctionProcessor extends AbstractProcessor
     protected array $parameters = [];
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function execute(TaskRuntime $taskRuntime): void
     {

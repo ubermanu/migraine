@@ -31,7 +31,7 @@ class MapProcessorTest extends AbstractProcessorTest
             'id' => 'userId',
             'name' => 'firstName',
         ]);
-        $p->setStorage('test');
+        $p->setStorageId('test');
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();
