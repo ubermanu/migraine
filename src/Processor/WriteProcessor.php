@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 use Migraine\Processor\Traits\IOProcessorTrait;
 use Migraine\Writer\AbstractWriter;
@@ -14,7 +15,8 @@ use Migraine\Writer\AbstractWriter;
  */
 class WriteProcessor extends AbstractProcessor
 {
-    use IOProcessorTrait;
+    use IOProcessorTrait,
+        HasOptionalStorageId;
 
     /**
      * @inheritDoc
@@ -27,44 +29,10 @@ class WriteProcessor extends AbstractProcessor
         // TODO: Override by settings
         $className = '\\Migraine\\Writer\\' . ucfirst($resourceType) . 'Writer';
 
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        $storage = $this->getStorageOrDefault($taskRuntime, $this->getStorageId());
 
         /** @var AbstractWriter $writer */
         $writer = new $className();
         $writer->write($storage, $this->getResourceName(), $this->getResourceOptions());
-    }
-
-    /**
-     * @return string
-     */
-    protected function getResourceName(): string
-    {
-        return $this->getData('write');
-    }
-
-    /**
-     * @param string $resourceName
-     * @return $this
-     */
-    public function setResourceName(string $resourceName): self
-    {
-        return $this->setData('write', $resourceName);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('from');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('from', $storage);
     }
 }

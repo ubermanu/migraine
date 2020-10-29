@@ -10,16 +10,42 @@ namespace Migraine\Processor\Traits;
 trait IOProcessorTrait
 {
     /**
+     * @var string
+     */
+    protected string $resourceName;
+
+    /**
+     * @var string
+     */
+    protected string $resourceType;
+
+    /**
+     * @var array
+     */
+    protected array $resourceOptions = [];
+
+    /**
      * @return string
      */
-    abstract function getResourceName(): string;
+    public function getResourceName(): string
+    {
+        return $this->resourceName;
+    }
+
+    /**
+     * @param string $resourceName
+     */
+    public function setResourceName(string $resourceName): void
+    {
+        $this->resourceName = $resourceName;
+    }
 
     /**
      * @return string
      */
     protected function getResourceType(): string
     {
-        $resourceType = strtolower($this->getData('type') ?? '');
+        $resourceType = strtolower($this->resourceType ?? '');
 
         if (!empty($resourceType)) {
             return $resourceType;
@@ -31,10 +57,26 @@ trait IOProcessorTrait
     }
 
     /**
+     * @param string $resourceType
+     */
+    public function setResourceType(string $resourceType): void
+    {
+        $this->resourceType = $resourceType;
+    }
+
+    /**
      * @return array
      */
-    protected function getResourceOptions(): array
+    public function getResourceOptions(): array
     {
-        return $this->getData('options') ?? [];
+        return $this->resourceOptions;
+    }
+
+    /**
+     * @param array $resourceOptions
+     */
+    public function setResourceOptions(array $resourceOptions): void
+    {
+        $this->resourceOptions = $resourceOptions;
     }
 }

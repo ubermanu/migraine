@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\Processor\Traits\IOProcessorTrait;
 use Migraine\Reader\AbstractReader;
 use Migraine\TaskRuntime;
@@ -14,7 +15,8 @@ use Migraine\TaskRuntime;
  */
 class ReadProcessor extends AbstractProcessor
 {
-    use IOProcessorTrait;
+    use IOProcessorTrait,
+        HasOptionalStorageId;
 
     /**
      * @inheritDoc
@@ -31,40 +33,6 @@ class ReadProcessor extends AbstractProcessor
         $reader = new $className();
         $storage = $reader->read($this->getResourceName(), $this->getResourceOptions());
 
-        $this->getStorageOrDefault($taskRuntime, 'from')->copy($storage);
-    }
-
-    /**
-     * @return string
-     */
-    public function getResourceName(): string
-    {
-        return $this->getData('read');
-    }
-
-    /**
-     * @param string $resourceName
-     * @return $this
-     */
-    public function setResourceName(string $resourceName): self
-    {
-        return $this->setData('read', $resourceName);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('in');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('in', $storage);
+        $this->getStorageOrDefault($taskRuntime, $this->getStorageId())->copy($storage);
     }
 }
