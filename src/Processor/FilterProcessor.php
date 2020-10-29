@@ -52,15 +52,14 @@ class FilterProcessor extends AbstractProcessor
      */
     public function getRule(): string
     {
-        return $this->getData('filter');
+        return $this->rule;
     }
 
     /**
      * @param string $rule
-     * @return $this
      */
-    public function setRule(string $rule): self
+    public function setRule(string $rule): void
     {
-        return $this->setData('filter', $rule);
+        $this->rule = $rule;
     }
 }
