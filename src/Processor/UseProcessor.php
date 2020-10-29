@@ -11,27 +11,31 @@ use Migraine\TaskRuntime;
 class UseProcessor extends AbstractProcessor
 {
     /**
+     * @var string
+     */
+    protected string $identifier;
+
+    /**
      * @inheritdoc
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->setDefaultStorageIdentifier($this->getStorage());
+        $taskRuntime->setDefaultStorageIdentifier($this->getIdentifier());
     }
 
     /**
      * @return string
      */
-    public function getStorage(): string
+    public function getIdentifier(): string
     {
-        return $this->getData('use');
+        return $this->identifier;
     }
 
     /**
-     * @param string $storage
-     * @return $this
+     * @param string $identifier
      */
-    public function setStorage(string $storage): self
+    public function setIdentifier(string $identifier): void
     {
-        return $this->setData('use', $storage);
+        $this->identifier = $identifier;
     }
 }

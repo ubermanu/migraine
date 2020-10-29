@@ -8,20 +8,37 @@ use Migraine\TaskRuntime;
 
 /**
  * Class TaskProcessor
- *
- * @method string getTask()
- * @method $this setTask(string $task)
- *
  * @package Migraine\Processor
  */
 class TaskProcessor extends AbstractProcessor
 {
+    /**
+     * @var string
+     */
+    protected string $identifier;
+
     /**
      * @inheritdoc
      * @throws TaskException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $taskRuntime->execute($this->getTask());
+        $taskRuntime->execute($this->getIdentifier());
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     */
+    public function setIdentifier(string $identifier): void
+    {
+        $this->identifier = $identifier;
     }
 }
