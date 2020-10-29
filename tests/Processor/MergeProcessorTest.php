@@ -30,7 +30,7 @@ class MergeProcessorTest extends AbstractProcessorTest
         $this->migraine->addStorage('test-2', new Storage($data));
 
         $p = new MergeProcessor();
-        $p->setMerging(['test-1', 'test-2']);
+        $p->setMergingStorageIds(['test-1', 'test-2']);
 
         $this->defaultTask->addProcessor($p);
         $r = $this->migraine->execute();

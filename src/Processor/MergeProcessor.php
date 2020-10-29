@@ -4,27 +4,21 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
  * Class MergeProcessor
- *
- * @method array getMerging()
- * @method $this setMerging(array $storages)
- * @method string getStorage()
- * @method $this setStorage(string $storage)
- *
  * @package Migraine\Processor
  */
 class MergeProcessor extends AbstractProcessor
 {
+    use HasOptionalStorageId;
+
     /**
      * @var array
      */
-    protected array $data = [
-        'storage' => null,
-        'merging' => null,
-    ];
+    protected array $mergingStorageIds;
 
     /**
      * @inheritDoc
@@ -32,26 +26,28 @@ class MergeProcessor extends AbstractProcessor
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
+        $sourceStorage = $this->getStorageOrDefault($taskRuntime, $this->getStorageId());
 
-        foreach ($this->getMergingStorages() as $identifier) {
+        foreach ($this->getMergingStorageIds() as $identifier) {
             foreach ($taskRuntime->getStorage($identifier) as $row) {
-                $storage->add($row);
+                $sourceStorage->add($row);
             }
         }
     }
 
     /**
-     * @return string[]
+     * @return array
      */
-    protected function getMergingStorages(): array
+    public function getMergingStorageIds(): array
     {
-        $identifiers = $this->getData('merging') ?? [];
+        return $this->mergingStorageIds;
+    }
 
-        if (is_string($identifiers)) {
-            $identifiers = [$identifiers];
-        }
-
-        return $identifiers;
+    /**
+     * @param array $mergingStorageIds
+     */
+    public function setMergingStorageIds(array $mergingStorageIds): void
+    {
+        $this->mergingStorageIds = $mergingStorageIds;
     }
 }

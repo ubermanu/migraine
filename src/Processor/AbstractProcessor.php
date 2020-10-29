@@ -43,9 +43,12 @@ abstract class AbstractProcessor
     protected function getStorageOrDefault(TaskRuntime $taskRuntime, ?string $storageId): Storage
     {
         try {
-            return $taskRuntime->getStorage($storageId);
+            if (false === is_null($storageId)) {
+                return $taskRuntime->getStorage($storageId);
+            }
         } catch (StorageException $e) {
-            return $taskRuntime->getDefaultStorage();
         }
+
+        return $taskRuntime->getDefaultStorage();
     }
 }
