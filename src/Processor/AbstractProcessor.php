@@ -6,7 +6,6 @@ namespace Migraine\Processor;
 use Migraine\Exception\StorageException;
 use Migraine\Storage;
 use Migraine\TaskRuntime;
-use Migraine\Traits\DataObjectTrait;
 
 /**
  * Class AbstractProcessor
@@ -14,17 +13,6 @@ use Migraine\Traits\DataObjectTrait;
  */
 abstract class AbstractProcessor
 {
-    use DataObjectTrait;
-
-    /**
-     * AbstractProcessor constructor.
-     * @param array $options
-     */
-    public function __construct(array $options = [])
-    {
-        $this->data = array_replace($this->data, $options);
-    }
-
     /**
      * Execute the processor.
      * @param TaskRuntime $taskRuntime
