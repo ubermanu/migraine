@@ -12,7 +12,7 @@ trait HasOptionalStorageId
     /**
      * @var string|null
      */
-    protected ?string $storageId;
+    protected ?string $storageId = null;
 
     /**
      * @return string|null
