@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace Migraine\Tests\Processor;
 
-use Migraine\Exception\StorageException;
-use Migraine\Exception\TaskException;
 use Migraine\Processor\FlushProcessor;
 use Migraine\Storage;
+use Migraine\TaskRuntime;
 
 /**
  * Class FlushProcessorTest
@@ -15,25 +14,25 @@ use Migraine\Storage;
 class FlushProcessorTest extends AbstractProcessorTest
 {
     /**
-     * @throws StorageException
-     * @throws TaskException
+     * Test if a storage can be emptied.
      */
     public function testEmptyStorage(): void
     {
-        $data = [
-            [
-                'foo' => 'bar',
-            ]
-        ];
+        $storage = new Storage([
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+            ['foo' => 'bar'],
+        ]);
 
-        $this->migraine->addStorage('test', new Storage($data));
+        $processor = new FlushProcessor();
+        $processor->setStorage($storage);
 
-        $p = new FlushProcessor();
-        $p->setStorage('test');
-
-        $this->defaultTask->addProcessor($p);
-        $r = $this->migraine->execute();
-
-        $this->assertCount(0, $r->getStorage('test'));
+        $this->assertCount(7, $storage);
+        $processor->execute(new TaskRuntime());
+        $this->assertCount(0, $storage);
     }
 }

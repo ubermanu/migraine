@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Exception\StorageException;
+use Migraine\Storage;
 use Migraine\TaskRuntime;
 
 /**
@@ -13,16 +13,39 @@ use Migraine\TaskRuntime;
 class SelectProcessor extends AbstractProcessor
 {
     /**
+     * @var Storage
+     */
+    protected Storage $storage;
+
+    /**
+     * @var array
+     */
+    protected array $columns;
+
+    /**
      * @inheritdoc
-     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
-
-        foreach ($storage as &$record) {
+        foreach ($this->getStorage() as &$record) {
             $record = array_intersect_key($record, array_flip($this->getColumns()));
         }
+    }
+
+    /**
+     * @return Storage
+     */
+    public function getStorage(): Storage
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param Storage $storage
+     */
+    public function setStorage(Storage $storage): void
+    {
+        $this->storage = $storage;
     }
 
     /**
@@ -30,32 +53,14 @@ class SelectProcessor extends AbstractProcessor
      */
     public function getColumns(): array
     {
-        return array_values($this->getData('select'));
+        return $this->columns;
     }
 
     /**
      * @param array $columns
-     * @return $this
      */
-    public function setColumns(array $columns): self
+    public function setColumns(array $columns): void
     {
-        return $this->setData('select', $columns);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('in');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('in', $storage);
+        $this->columns = $columns;
     }
 }

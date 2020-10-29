@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Exception\StorageException;
+use Migraine\Storage;
 use Migraine\TaskRuntime;
 
 /**
@@ -13,12 +13,37 @@ use Migraine\TaskRuntime;
 class LimitProcessor extends AbstractProcessor
 {
     /**
+     * @var Storage
+     */
+    protected Storage $storage;
+
+    /**
+     * @var int
+     */
+    protected int $length;
+
+    /**
      * @inheritdoc
-     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $this->getStorageOrDefault($taskRuntime, 'in')->slice(0, $this->getLength());
+        $this->getStorage()->slice(0, $this->getLength());
+    }
+
+    /**
+     * @return Storage
+     */
+    public function getStorage(): Storage
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param Storage $storage
+     */
+    public function setStorage(Storage $storage): void
+    {
+        $this->storage = $storage;
     }
 
     /**
@@ -26,32 +51,14 @@ class LimitProcessor extends AbstractProcessor
      */
     public function getLength(): int
     {
-        return $this->getData('limit');
+        return $this->length;
     }
 
     /**
      * @param int $length
-     * @return $this
      */
-    public function setLength(int $length): self
+    public function setLength(int $length): void
     {
-        return $this->setData('limit', $length);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('in');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('in', $storage);
+        $this->length = $length;
     }
 }

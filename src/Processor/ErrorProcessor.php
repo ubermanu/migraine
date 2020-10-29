@@ -8,23 +8,24 @@ use Migraine\TaskRuntime;
 
 /**
  * Class ErrorProcessor
- *
- * @method int getCode()
- * @method $this setCode(int $code)
- * @method int getSeverity()
- * @method $this setSeverity(int $severity)
- *
  * @package Migraine\Processor
  */
 class ErrorProcessor extends AbstractProcessor
 {
     /**
-     * @var array
+     * @var string
      */
-    protected array $data = [
-        'code' => 0,
-        'severity' => 1,
-    ];
+    protected string $message;
+
+    /**
+     * @var int
+     */
+    protected int $code = 0;
+
+    /**
+     * @var int
+     */
+    protected int $severity = 1;
 
     /**
      * @inheritdoc
@@ -40,15 +41,46 @@ class ErrorProcessor extends AbstractProcessor
      */
     public function getMessage(): string
     {
-        return $this->getData('error');
+        return $this->message;
     }
 
     /**
      * @param string $message
-     * @return $this
      */
-    public function setMessage(string $message): self
+    public function setMessage(string $message): void
     {
-        return $this->setData('error', $message);
+        $this->message = $message;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCode(): int
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param int $code
+     */
+    public function setCode(int $code): void
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSeverity(): int
+    {
+        return $this->severity;
+    }
+
+    /**
+     * @param int $severity
+     */
+    public function setSeverity(int $severity): void
+    {
+        $this->severity = $severity;
     }
 }

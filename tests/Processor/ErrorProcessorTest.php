@@ -23,7 +23,8 @@ class ErrorProcessorTest extends AbstractProcessorTest
     public function testCanThrowErrorWithCustomMessage(): void
     {
         $p = new ErrorProcessor();
-        $p->setMessage('Error has been thrown!')->setCode(1602422720);
+        $p->setMessage('Error has been thrown!');
+        $p->setCode(1602422720);
 
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('Error has been thrown!');

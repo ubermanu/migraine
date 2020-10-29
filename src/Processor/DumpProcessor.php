@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Exception\StorageException;
+use Migraine\Storage;
 use Migraine\TaskRuntime;
 
 /**
@@ -13,14 +13,32 @@ use Migraine\TaskRuntime;
 class DumpProcessor extends AbstractProcessor
 {
     /**
+     * @var Storage
+     */
+    protected Storage $storage;
+
+    /**
      * @inheritdoc
-     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        // TODO: Add support for some writers types
-        $storage = $this->getStorageOrDefault($taskRuntime, 'storage');
-        print_r($storage->toArray());
+        print_r($this->getStorage()->toArray());
         exit;
+    }
+
+    /**
+     * @return Storage
+     */
+    public function getStorage(): Storage
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param Storage $storage
+     */
+    public function setStorage(Storage $storage): void
+    {
+        $this->storage = $storage;
     }
 }

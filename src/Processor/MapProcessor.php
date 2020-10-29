@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Processor;
 
-use Migraine\Exception\StorageException;
+use Migraine\Storage;
 use Migraine\TaskRuntime;
 
 /**
@@ -13,14 +13,21 @@ use Migraine\TaskRuntime;
 class MapProcessor extends AbstractProcessor
 {
     /**
+     * @var Storage
+     */
+    protected Storage $storage;
+
+    /**
+     * @var array
+     */
+    protected array $mapping;
+
+    /**
      * @inheritdoc
-     * @throws StorageException
      */
     public function execute(TaskRuntime $taskRuntime): void
     {
-        $storage = $this->getStorageOrDefault($taskRuntime, 'in');
-
-        foreach ($storage as &$record) {
+        foreach ($this->getStorage() as &$record) {
 
             // Backup current record
             $baseRecord = $record;
@@ -38,36 +45,34 @@ class MapProcessor extends AbstractProcessor
     }
 
     /**
+     * @return Storage
+     */
+    public function getStorage(): Storage
+    {
+        return $this->storage;
+    }
+
+    /**
+     * @param Storage $storage
+     */
+    public function setStorage(Storage $storage): void
+    {
+        $this->storage = $storage;
+    }
+
+    /**
      * @return array
      */
     public function getMapping(): array
     {
-        return $this->getData('map');
+        return $this->mapping;
     }
 
     /**
      * @param array $mapping
-     * @return $this
      */
-    public function setMapping(array $mapping): self
+    public function setMapping(array $mapping): void
     {
-        return $this->setData('map', $mapping);
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorage(): string
-    {
-        return $this->getData('in');
-    }
-
-    /**
-     * @param string $storage
-     * @return $this
-     */
-    public function setStorage(string $storage): self
-    {
-        return $this->setData('in', $storage);
+        $this->mapping = $mapping;
     }
 }
