@@ -25,7 +25,7 @@ class ReadProcessor extends AbstractProcessor
     protected string $resourceName;
 
     /**
-     * @Migraine\Configuration\Yaml\Option("from")
+     * @Migraine\Configuration\Yaml\Option("in")
      * @var string|null
      */
     protected ?string $storageId = null;

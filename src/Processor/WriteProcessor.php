@@ -25,7 +25,7 @@ class WriteProcessor extends AbstractProcessor
     protected string $resourceName;
 
     /**
-     * @Migraine\Configuration\Yaml\Option("in")
+     * @Migraine\Configuration\Yaml\Option("from")
      * @var string|null
      */
     protected ?string $storageId = null;
