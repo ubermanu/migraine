@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Tests\Reader;
 
+use Migraine\Exception\StorageException;
+use Migraine\Exception\TaskException;
 use Migraine\Processor\ReadProcessor;
 
 /**
@@ -11,6 +13,10 @@ use Migraine\Processor\ReadProcessor;
  */
 class JsonReaderTest extends AbstractReaderTest
 {
+    /**
+     * @throws StorageException
+     * @throws TaskException
+     */
     public function testReadFile(): void
     {
         $r = new ReadProcessor();
