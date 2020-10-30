@@ -99,11 +99,11 @@ class YamlParser extends AbstractParser
         $processorType = current(array_keys($processorConfig));
 
         // TODO: Override by settings
-        $processorClass = '\\Migraine\\Processor\\' . ucfirst($processorType) . 'Processor';
-        $processor = new $processorClass();
+        $className = '\\Migraine\\Processor\\' . ucfirst($processorType) . 'Processor';
+        $processor = new $className();
 
         // TODO: Catch error
-        $reflectionClass = new \ReflectionClass($processorClass);
+        $reflectionClass = new \ReflectionClass($className);
         $properties = $reflectionClass->getProperties();
         $reader = new AnnotationReader();
 
