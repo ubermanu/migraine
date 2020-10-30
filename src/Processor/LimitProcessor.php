@@ -16,9 +16,16 @@ class LimitProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("limit")
      * @var int
      */
     protected int $length;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
 
     /**
      * @inheritDoc

@@ -15,6 +15,7 @@ use Migraine\TaskRuntime;
 class IfProcessor extends AbstractProcessor
 {
     /**
+     * @Migraine\Configuration\Yaml\Option("if")
      * @var string
      */
     protected string $condition;

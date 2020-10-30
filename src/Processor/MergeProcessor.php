@@ -16,6 +16,12 @@ class MergeProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
+
+    /**
      * @var array
      */
     protected array $mergingStorageIds;

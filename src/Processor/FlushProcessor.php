@@ -16,6 +16,12 @@ class FlushProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("flush")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
+
+    /**
      * @inheritDoc
      * @throws StorageException
      */

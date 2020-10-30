@@ -16,9 +16,16 @@ class MapProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("map")
      * @var array
      */
     protected array $mapping;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
 
     /**
      * @inheritDoc

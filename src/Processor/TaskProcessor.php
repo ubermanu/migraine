@@ -13,6 +13,7 @@ use Migraine\TaskRuntime;
 class TaskProcessor extends AbstractProcessor
 {
     /**
+     * @Migraine\Configuration\Yaml\Option("task")
      * @var string
      */
     protected string $taskId;

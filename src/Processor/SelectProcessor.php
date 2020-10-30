@@ -16,9 +16,16 @@ class SelectProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("select")
      * @var array
      */
     protected array $columns;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
 
     /**
      * @inheritDoc

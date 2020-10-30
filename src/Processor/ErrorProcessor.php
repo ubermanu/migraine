@@ -13,6 +13,7 @@ use Migraine\TaskRuntime;
 class ErrorProcessor extends AbstractProcessor
 {
     /**
+     * @Migraine\Configuration\Yaml\Option("error")
      * @var string
      */
     protected string $message;

@@ -19,6 +19,18 @@ class WriteProcessor extends AbstractProcessor
         HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("write")
+     * @var string
+     */
+    protected string $resourceName;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
+
+    /**
      * @inheritDoc
      * @throws StorageException
      */

@@ -23,9 +23,16 @@ class FilterProcessor extends AbstractProcessor
     use HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("filter")
      * @var string
      */
     protected string $rule;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("in")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
 
     /**
      * @inheritDoc

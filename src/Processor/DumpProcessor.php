@@ -13,6 +13,7 @@ use Migraine\TaskRuntime;
 class DumpProcessor extends AbstractProcessor
 {
     /**
+     * @Migraine\Configuration\Yaml\Option("dump")
      * @var string
      */
     protected string $storageId;

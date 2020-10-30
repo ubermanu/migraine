@@ -19,6 +19,18 @@ class ReadProcessor extends AbstractProcessor
         HasOptionalStorageId;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("read")
+     * @var string
+     */
+    protected string $resourceName;
+
+    /**
+     * @Migraine\Configuration\Yaml\Option("from")
+     * @var string|null
+     */
+    protected ?string $storageId = null;
+
+    /**
      * @inheritDoc
      * @throws StorageException
      */

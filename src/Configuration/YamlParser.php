@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Migraine\Configuration;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Migraine\Configuration\Yaml\Option;
 use Migraine\Exception\StorageException;
 use Migraine\Exception\TaskException;
 use Migraine\Processor\AbstractProcessor;
@@ -28,6 +31,7 @@ class YamlParser extends AbstractParser
      */
     public function __construct(string $content)
     {
+        AnnotationRegistry::registerLoader('class_exists');
         $this->configuration = Yaml::parse($content, Yaml::PARSE_CUSTOM_TAGS);
         parent::__construct();
     }
@@ -95,9 +99,29 @@ class YamlParser extends AbstractParser
         $processorType = current(array_keys($processorConfig));
 
         // TODO: Override by settings
-        $factoryClass = '\\Migraine\\Configuration\\Yaml\\Processor\\' . ucfirst($processorType) . 'ProcessorFactory';
-        $factory = new $factoryClass($processorConfig);
+        $processorClass = '\\Migraine\\Processor\\' . ucfirst($processorType) . 'Processor';
+        $processor = new $processorClass();
 
-        return $factory->create();
+        // TODO: Catch error
+        $reflectionClass = new \ReflectionClass($processorClass);
+        $properties = $reflectionClass->getProperties();
+        $reader = new AnnotationReader();
+
+        foreach ($properties as $property) {
+            /** @var Option|null $mapOption */
+            if ($mapOption = $reader->getPropertyAnnotation($property, Option::class)) {
+                $propName = $property->getName();
+                $optionName = $mapOption->name;
+                $processorConfig[$propName] = $processorConfig[$optionName];
+                unset($processorConfig[$optionName]);
+            }
+        }
+
+        // Apply property values from config options
+        foreach ($processorConfig as $prop => $value) {
+            $processor->{'set' . ucfirst(strtolower($prop))}($value);
+        }
+
+        return $processor;
     }
 }
