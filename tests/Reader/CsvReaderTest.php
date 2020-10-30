@@ -34,4 +34,28 @@ class CsvReaderTest extends AbstractReaderTest
             $r->getDefaultStorage()->toArray()
         );
     }
+
+    /**
+     * @throws StorageException
+     * @throws TaskException
+     */
+    public function testReadWithCustomOptions(): void
+    {
+        $r = new ReadProcessor();
+        $r->setResourceName(__DIR__ . '/Fixtures/example-2.csv');
+        $r->setResourceOptions([
+            'delimiter' => ';',
+            'enclosure' => "'",
+        ]);
+
+        $this->defaultTask->addProcessor($r);
+        $r = $this->migraine->execute();
+
+        $this->assertEquals(
+            [
+                ['id' => '0', 'foo' => 'bar bar'],
+            ],
+            $r->getDefaultStorage()->toArray()
+        );
+    }
 }
