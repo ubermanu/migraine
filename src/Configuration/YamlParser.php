@@ -104,16 +104,20 @@ class YamlParser extends AbstractParser
 
         // TODO: Catch error
         $reflectionClass = new \ReflectionClass($className);
-        $properties = $reflectionClass->getProperties();
         $reader = new AnnotationReader();
 
-        foreach ($properties as $property) {
+        // Map processor configuration to the processor property
+        // Makes YAML configuration more compact and readable
+        foreach ($reflectionClass->getProperties() as $property) {
             /** @var Option|null $mapOption */
             if ($mapOption = $reader->getPropertyAnnotation($property, Option::class)) {
                 $propName = $property->getName();
                 $optionName = $mapOption->name;
-                $processorConfig[$propName] = $processorConfig[$optionName];
-                unset($processorConfig[$optionName]);
+
+                if (isset($processorConfig[$optionName])) {
+                    $processorConfig[$propName] = $processorConfig[$optionName];
+                    unset($processorConfig[$optionName]);
+                }
             }
         }
 
