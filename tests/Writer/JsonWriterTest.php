@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Migraine\Tests\Writer;
 
+use Migraine\Exception\StorageException;
+use Migraine\Exception\TaskException;
 use Migraine\Processor\WriteProcessor;
 
 /**
@@ -13,6 +15,8 @@ class JsonWriterTest extends AbstractWriterTest
 {
     /**
      * @doesNotPerformAssertions
+     * @throws StorageException
+     * @throws TaskException
      */
     public function testWriteFile(): void
     {
