@@ -15,11 +15,13 @@ trait IOProcessorTrait
     protected string $resourceName;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("type")
      * @var string
      */
     protected string $resourceType;
 
     /**
+     * @Migraine\Configuration\Yaml\Option("options")
      * @var array
      */
     protected array $resourceOptions = [];
