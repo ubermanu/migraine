@@ -13,6 +13,8 @@
         "php": ">=7.4.0",
         "ext-json": "*",
         "ext-simplexml": "*",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
         "hoa/ruler": "~2.0",
         "symfony/yaml": "^5.1",
         "symfony/console": "^5.1",
