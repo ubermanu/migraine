@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Reader\Traits;
 
+use Migraine\Exception\ReaderException;
 use Migraine\Storage;
 
 /**
@@ -13,15 +14,16 @@ trait FileReaderTrait
 {
     /**
      * @inheritDoc
+     * @throws ReaderException
      */
     public function read(?string $resource, array $options): Storage
     {
         if (empty($resource)) {
-            throw new \Error('No filename defined');
+            throw new ReaderException('No filename defined');
         }
 
         if (!file_exists($resource)) {
-            throw new \Error(sprintf('The file "%s" does not exist', $resource));
+            throw new ReaderException(sprintf('The file "%s" does not exist', $resource));
         }
 
         return $this->createStorage($resource, $options);

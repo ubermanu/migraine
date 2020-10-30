@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Writer\Traits;
 
+use Migraine\Exception\WriterException;
 use Migraine\Storage;
 
 /**
@@ -13,11 +14,12 @@ trait FileWriterTrait
 {
     /**
      * @inheritDoc
+     * @throws WriterException
      */
     public function write(Storage $storage, ?string $resource, array $options): void
     {
         if (empty($resource)) {
-            throw new \RuntimeException('No filename defined!');
+            throw new WriterException('No filename defined!');
         }
 
         file_put_contents($resource, $this->encodeStorage($storage, $options));
