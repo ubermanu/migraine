@@ -54,4 +54,16 @@ class YamlParserTest extends TestCase
 
         $migraine->execute();
     }
+
+    /**
+     * @throws StorageException
+     * @throws TaskException
+     */
+    public function testCanReadJson(): void
+    {
+        $migraine = $this->createMigraine('03-json-reader.yml');
+        $r = $migraine->execute();
+
+        $this->assertCount(3, $r->getDefaultStorage());
+    }
 }
