@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
+use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
 
 /**
@@ -12,11 +13,13 @@ use Migraine\TaskRuntime;
  */
 class DumpProcessor extends AbstractProcessor
 {
+    use HasOptionalStorageId;
+
     /**
      * @Migraine\Configuration\Yaml\Option("dump")
-     * @var string
+     * @var string|null
      */
-    protected string $storageId;
+    protected ?string $storageId = null;
 
     /**
      * @inheritDoc
@@ -26,21 +29,5 @@ class DumpProcessor extends AbstractProcessor
     {
         print_r($this->getStorageOrDefault($taskRuntime, $this->getStorageId())->toArray());
         exit;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStorageId(): string
-    {
-        return $this->storageId;
-    }
-
-    /**
-     * @param string $storageId
-     */
-    public function setStorageId(string $storageId): void
-    {
-        $this->storageId = $storageId;
     }
 }
