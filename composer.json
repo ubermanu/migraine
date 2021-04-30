@@ -25,7 +25,8 @@
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-pdo_sqlite": "*",
-        "phpunit/phpunit": "^9.4"
+        "phpunit/phpunit": "^9.4",
+        "phpstan/phpstan": "^0.12.85"
     },
     "autoload": {
         "psr-4": {
