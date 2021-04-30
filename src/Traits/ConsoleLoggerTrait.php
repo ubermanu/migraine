@@ -12,9 +12,9 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 trait ConsoleLoggerTrait
 {
     /**
-     * @var ConsoleLogger
+     * @var ConsoleLogger|null
      */
-    protected ConsoleLogger $logger;
+    protected ?ConsoleLogger $logger = null;
 
     /**
      * @param ConsoleLogger $logger
@@ -25,9 +25,9 @@ trait ConsoleLoggerTrait
     }
 
     /**
-     * @return ConsoleLogger
+     * @return ConsoleLogger|null
      */
-    public function getLogger(): ConsoleLogger
+    public function getLogger(): ?ConsoleLogger
     {
         return $this->logger;
     }
