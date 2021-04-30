@@ -44,10 +44,12 @@ class ExecuteCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $logger = new ConsoleLogger($output);
+
         $file = getcwd() . '/' . $input->getOption('config');
 
         if (false === file_exists($file)) {
-            $output->writeln(sprintf('<error>Cannot read the file: %s<error>', $file));
+            $logger->error(sprintf('Cannot read the file: %s', $file));
             return Command::FAILURE;
         }
 
@@ -56,12 +58,11 @@ class ExecuteCommand extends Command
         $configVersion = $parser->getRequiredVersion();
 
         if (false === Migraine::supports($configVersion)) {
-            $output->writeln(sprintf('<error>This configuration is not supported (version: %s)<error>', $configVersion));
+            $logger->error(sprintf('This configuration is not supported (version: %s)', $configVersion));
             return Command::FAILURE;
         }
 
-        $migraine->setLogger(new ConsoleLogger($output));
-
+        $migraine->setLogger($logger);
         $migraine->execute($input->getArgument('task'));
 
         return Command::SUCCESS;
