@@ -123,7 +123,7 @@ class YamlParser extends AbstractParser
                 $propName = $property->getName();
                 $optionName = $mapOption->name;
 
-                if (isset($processorConfig[$optionName])) {
+                if (array_key_exists($optionName, $processorConfig)) {
                     $processorConfig[$propName] = $processorConfig[$optionName];
                     unset($processorConfig[$optionName]);
                 }
