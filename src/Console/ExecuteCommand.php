@@ -42,11 +42,22 @@ class ExecuteCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $config = new YamlParser(file_get_contents($input->getOption('config')));
+        $file = getcwd() . '/' . $input->getOption('config');
+
+        if (false === file_exists($file)) {
+            $output->writeln(sprintf('<error>Cannot read the file: %s<error>', $file));
+            return Command::FAILURE;
+        }
+
+        $config = new YamlParser(file_get_contents($file));
         $migraine = $config->parse()->getMigraine();
 
         if (false === $migraine->supports($config->getRequiredVersion())) {
-            $output->writeln('<error>Your migraine version is not supported for this configuration<error>');
+            $output->writeln(sprintf(
+                '<error>This configuration is not supported (current: %s, needed: %s)<error>',
+                $migraine->getVersion(),
+                $config->getRequiredVersion()
+            ));
             return Command::FAILURE;
         }
 
