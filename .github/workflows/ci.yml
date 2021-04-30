@@ -23,6 +23,5 @@ jobs:
         with:
           php_version: 8.0
 
-      - uses: php-actions/phpunit@v9
-
-      - uses: php-actions/phpstan@v2
+      - run: vendor/bin/phpunit
+      - run: vendor/bin/phpstan src tests
