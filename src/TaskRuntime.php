@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Migraine;
 
 use Migraine\Exception\StorageException;
+use Migraine\Traits\ConsoleLoggerTrait;
 use Migraine\Traits\StorageCollectionTrait;
 use Migraine\Traits\TaskCollectionTrait;
 
@@ -14,7 +15,8 @@ use Migraine\Traits\TaskCollectionTrait;
 class TaskRuntime
 {
     use StorageCollectionTrait,
-        TaskCollectionTrait;
+        TaskCollectionTrait,
+        ConsoleLoggerTrait;
 
     /**
      * @var string
@@ -31,6 +33,7 @@ class TaskRuntime
         if ($migraine) {
             $this->storages = $migraine->getStorages();
             $this->tasks = $migraine->getTasks();
+            $this->logger = $migraine->getLogger();
         }
 
         $this->setDefaultStorageIdentifier('storage-' . md5(microtime()));

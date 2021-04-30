@@ -6,8 +6,6 @@ namespace Migraine\Processor;
 use Migraine\Exception\StorageException;
 use Migraine\Processor\Traits\HasOptionalStorageId;
 use Migraine\TaskRuntime;
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -36,31 +34,48 @@ class DumpProcessor extends AbstractProcessor
     public function execute(TaskRuntime $taskRuntime): void
     {
         $storage = $this->getStorageOrDefault($taskRuntime, $this->getStorageId());
-        $format = strtolower($this->format ?? '');
 
-        switch ($format) {
-            case 'json':
-            {
-                echo \json_encode($storage->toArray(), JSON_PRETTY_PRINT);
-                break;
-            }
+        switch (strtolower($this->getFormat())) {
             case 'yaml':
             {
-                echo Yaml::dump($storage->toArray());
+                $this->output(Yaml::dump($storage->toArray()));
+                break;
+            }
+            case 'json':
+            {
+                $this->output(\json_encode($storage->toArray(), JSON_PRETTY_PRINT));
                 break;
             }
             default:
             {
-                $output = \Migraine\Migraine::getConsoleOutput();
-                if ($output instanceof OutputInterface && $storage->size() > 0) {
-                    (new Table($output))
-                        ->setHeaders($storage->getHeader())
-                        ->setRows($storage->toArray())
-                        ->render();
-                } else {
-                    var_dump($storage->toArray());
-                }
+                var_dump($storage->toArray());
             }
+        }
+    }
+
+    /**
+     * @param string|null $format
+     */
+    public function setFormat(?string $format): void
+    {
+        $this->format = $format;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormat(): string
+    {
+        return $this->format ?? '';
+    }
+
+    /**
+     * @param string|null $message
+     */
+    protected function output(?string $message): void
+    {
+        if (is_string($message)) {
+            echo $message . PHP_EOL;
         }
     }
 }

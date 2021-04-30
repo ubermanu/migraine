@@ -11,6 +11,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -59,9 +60,7 @@ class ExecuteCommand extends Command
             return Command::FAILURE;
         }
 
-        // Setup bridge to the console helpers
-        // For an example usage, check the dump processor
-        Migraine::bindConsole($input, $output);
+        $migraine->setLogger(new ConsoleLogger($output));
 
         $migraine->execute($input->getArgument('task'));
 

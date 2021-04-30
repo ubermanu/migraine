@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine;
 
-use Migraine\Traits\ConsoleTrait;
+use Migraine\Traits\ConsoleLoggerTrait;
 use Migraine\Traits\StorageCollectionTrait;
 use Migraine\Traits\TaskCollectionTrait;
 use Migraine\Traits\VersionManagerTrait;
@@ -17,7 +17,7 @@ class Migraine
     use StorageCollectionTrait,
         TaskCollectionTrait,
         VersionManagerTrait,
-        ConsoleTrait;
+        ConsoleLoggerTrait;
 
     /**
      * @return TaskRuntime
