@@ -105,7 +105,7 @@ class Storage extends \ArrayObject
      */
     public function getHeader(): array
     {
-        return array_keys(current(iterator_to_array($this)));
+        return array_keys(current(iterator_to_array($this)) ?: []);
     }
 
     /**
