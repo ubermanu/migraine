@@ -26,6 +26,7 @@
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-pdo_sqlite": "*",
+        "ext-zlib": "*",
         "phpunit/phpunit": "^9.4",
         "vimeo/psalm": "^4.7"
     },
