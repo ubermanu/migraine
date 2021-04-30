@@ -5,8 +5,8 @@ namespace Migraine\Processor;
 
 use Migraine\Exception\StorageException;
 use Migraine\Processor\Traits\HasOptionalStorageId;
-use Migraine\TaskRuntime;
 use Migraine\Processor\Traits\IOProcessorTrait;
+use Migraine\TaskRuntime;
 use Migraine\Writer\AbstractWriter;
 
 /**
