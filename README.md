@@ -13,10 +13,12 @@ composer global require ubermanu/migraine
 
 You can check out the [documentation](https://ubermanu.github.io/migraine).
 
-## Tests
+## Build
 
-Clone this repo, install the dev deps and run:
+To build the `migraine.phar` file, you'll need [box-project/box](https://github.com/box-project/box).
+
+Clone this repo and run:
 
 ```shell
-vendor/bin/phpunit
+make build
 ```

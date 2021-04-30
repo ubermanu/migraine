@@ -1,5 +1,14 @@
+# IDE
 /.idea
+
+# Composer
 /vendor
-migraine.yml
-migraine.yaml
+
+# Tests
 /.phpunit*
+/migraine.yml
+/migraine.yaml
+
+# Box
+/box.phar
+/dist
