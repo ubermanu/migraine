@@ -16,11 +16,12 @@ trait VersionManagerTrait
 
     /**
      * Initialize the version manager.
+     *
+     * @return void
      */
-    public function initializeVersionManager()
+    public function initializeVersionManager(): void
     {
-        // TODO: Get version from composer.json
-        $this->version = '2';
+        $this->version = \Composer\InstalledVersions::getRootPackage()['version'];
     }
 
     /**
@@ -36,9 +37,9 @@ trait VersionManagerTrait
      * Used to compare the configuration file version before hand.
      *
      * @param string $targetVersion
-     * @return bool|int
+     * @return bool
      */
-    public function supports(string $targetVersion)
+    public function supports(string $targetVersion): bool
     {
         return version_compare($this->version, $targetVersion, '>=');
     }
