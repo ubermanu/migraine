@@ -8,11 +8,8 @@ if (file_exists(__DIR__ . '/../autoload.php')) {
     require_once __DIR__ . '/../../../autoload.php';
 }
 
-use Symfony\Component\Console\Application;
-use Migraine\Console\ExecuteCommand;
-
-(new Application('migraine'))
-    ->add(new ExecuteCommand())
-    ->getApplication()
-    ->setDefaultCommand('migraine:execute', true)
-    ->run();
+$app = new \Symfony\Component\Console\Application('migraine');
+$app->setVersion(\Migraine\Migraine::getVersion());
+$app->add(new \Migraine\Console\ExecuteCommand());
+$app->setDefaultCommand('migraine:execute', true);
+$app->run();
