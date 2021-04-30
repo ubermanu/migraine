@@ -6,6 +6,7 @@ namespace Migraine\Console;
 use Migraine\Configuration\YamlParser;
 use Migraine\Exception\StorageException;
 use Migraine\Exception\TaskException;
+use Migraine\Migraine;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,15 +50,12 @@ class ExecuteCommand extends Command
             return Command::FAILURE;
         }
 
-        $config = new YamlParser(file_get_contents($file));
-        $migraine = $config->parse()->getMigraine();
+        $parser = new YamlParser(file_get_contents($file));
+        $migraine = $parser->parse()->getMigraine();
+        $configVersion = $parser->getRequiredVersion();
 
-        if (false === $migraine->supports($config->getRequiredVersion())) {
-            $output->writeln(sprintf(
-                '<error>This configuration is not supported (current: %s, needed: %s)<error>',
-                $migraine->getVersion(),
-                $config->getRequiredVersion()
-            ));
+        if (false === Migraine::supports($configVersion)) {
+            $output->writeln(sprintf('<error>This configuration is not supported (version: %s)<error>', $configVersion));
             return Command::FAILURE;
         }
 

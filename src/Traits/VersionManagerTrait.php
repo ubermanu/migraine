@@ -10,26 +10,11 @@ namespace Migraine\Traits;
 trait VersionManagerTrait
 {
     /**
-     * @var string
-     */
-    protected string $version;
-
-    /**
-     * Initialize the version manager.
-     *
-     * @return void
-     */
-    public function initializeVersionManager(): void
-    {
-        $this->version = \Composer\InstalledVersions::getRootPackage()['pretty_version'];
-    }
-
-    /**
      * @return string
      */
-    public function getVersion(): string
+    public static function getVersion(): string
     {
-        return $this->version;
+        return \Composer\InstalledVersions::getRootPackage()['pretty_version'];
     }
 
     /**
@@ -39,8 +24,8 @@ trait VersionManagerTrait
      * @param string $targetVersion
      * @return bool
      */
-    public function supports(string $targetVersion): bool
+    public static function supports(string $targetVersion): bool
     {
-        return version_compare($this->version, $targetVersion, '>=');
+        return version_compare(static::getVersion(), $targetVersion, '>=');
     }
 }
