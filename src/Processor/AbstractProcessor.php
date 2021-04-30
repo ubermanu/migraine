@@ -16,9 +16,8 @@ abstract class AbstractProcessor
     /**
      * Execute the processor.
      * @param TaskRuntime $taskRuntime
-     * @return mixed
      */
-    public abstract function execute(TaskRuntime $taskRuntime);
+    public abstract function execute(TaskRuntime $taskRuntime): void;
 
     /**
      * If the storage does not exists, returns the default one.
@@ -35,6 +34,8 @@ abstract class AbstractProcessor
                 return $taskRuntime->getStorage($storageId);
             }
         } catch (StorageException $e) {
+            $taskRuntime->getLogger()->warning($e->getMessage());
+            $taskRuntime->getLogger()->warning('↳ Fallback on the default storage');
         }
 
         return $taskRuntime->getDefaultStorage();
