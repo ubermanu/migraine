@@ -63,6 +63,7 @@ class TaskRuntime
      */
     public function execute(string $taskName): void
     {
+        $this->getLogger()?->debug(sprintf('Run task "%s"', $taskName));
         $this->getTask($taskName)->execute($this);
     }
 }

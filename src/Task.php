@@ -45,6 +45,7 @@ class Task
     public function execute(TaskRuntime $taskRuntime): Task
     {
         foreach ($this->processors as $processor) {
+            $taskRuntime->getLogger()?->debug(sprintf('Execute %s %s', get_class($processor), $processor));
             $processor->execute($taskRuntime);
         }
 

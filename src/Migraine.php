@@ -38,8 +38,13 @@ class Migraine
      */
     public function execute(string $taskName = 'default'): TaskRuntime
     {
+        $start = microtime(true);
+
         $taskRuntime = $this->createTaskRuntime();
         $taskRuntime->execute($taskName);
+
+        $elapsed = microtime(true) - $start;
+        $taskRuntime->getLogger()?->notice(sprintf('✓ Executed in %0.4fs', $elapsed));
 
         return $taskRuntime;
     }
