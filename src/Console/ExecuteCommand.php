@@ -40,10 +40,16 @@ class ExecuteCommand extends Command
      * @throws StorageException
      * @throws TaskException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $config = new YamlParser(file_get_contents($input->getOption('config')));
         $migraine = $config->parse()->getMigraine();
+
+        if (false === $migraine->supports($config->getRequiredVersion())) {
+            $output->writeln('<error>Your migraine version is not supported for this configuration<error>');
+            return Command::FAILURE;
+        }
+
         $migraine->execute($input->getArgument('task'));
 
         return Command::SUCCESS;

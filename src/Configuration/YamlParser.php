@@ -8,6 +8,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Migraine\Configuration\Yaml\Option;
 use Migraine\Exception\StorageException;
 use Migraine\Exception\TaskException;
+use Migraine\Migraine;
 use Migraine\Processor\AbstractProcessor;
 use Migraine\Storage;
 use Migraine\Task;
@@ -33,7 +34,15 @@ class YamlParser extends AbstractParser
     {
         AnnotationRegistry::registerLoader('class_exists');
         $this->configuration = Yaml::parse($content, Yaml::PARSE_CUSTOM_TAGS);
-        parent::__construct();
+        $this->migraine = new Migraine();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequiredVersion(): string
+    {
+        return $this->configuration['version'] ?? '';
     }
 
     /**

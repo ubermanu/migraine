@@ -17,17 +17,14 @@ abstract class AbstractParser
     protected Migraine $migraine;
 
     /**
-     * AbstractParser constructor.
-     */
-    public function __construct()
-    {
-        $this->migraine = new Migraine();
-    }
-
-    /**
      * @return $this
      */
-    public abstract function parse();
+    public abstract function parse(): AbstractParser;
+
+    /**
+     * @return string
+     */
+    abstract public function getRequiredVersion(): string;
 
     /**
      * @return Migraine

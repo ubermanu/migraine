@@ -7,7 +7,6 @@ use Migraine\Configuration\YamlParser;
 use Migraine\Exception\ErrorException;
 use Migraine\Exception\StorageException;
 use Migraine\Exception\TaskException;
-use Migraine\Migraine;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,14 +17,14 @@ class YamlParserTest extends TestCase
 {
     /**
      * @param string $filename
-     * @return Migraine
+     * @return YamlParser
      * @throws StorageException
      * @throws TaskException
      */
-    protected function createMigraine(string $filename): Migraine
+    protected function createParser(string $filename): YamlParser
     {
         $parser = new YamlParser(file_get_contents(__DIR__ . '/Fixtures/' . $filename));
-        return $parser->parse()->getMigraine();
+        return $parser->parse();
     }
 
     /**
@@ -34,7 +33,7 @@ class YamlParserTest extends TestCase
      */
     public function testCanParseEmptyTask(): void
     {
-        $migraine = $this->createMigraine('01-empty-task.yml');
+        $migraine = $this->createParser('01-empty-task.yml')->getMigraine();
 
         $this->assertCount(1, $migraine->getTasks());
         $this->assertArrayHasKey('default', $migraine->getTasks());
@@ -46,7 +45,7 @@ class YamlParserTest extends TestCase
      */
     public function testCanThrowErrorFromConfig(): void
     {
-        $migraine = $this->createMigraine('02-error-processor.yml');
+        $migraine = $this->createParser('02-error-processor.yml')->getMigraine();
 
         $this->expectException(ErrorException::class);
         $this->expectExceptionMessage('An error has been thrown!');
@@ -61,9 +60,21 @@ class YamlParserTest extends TestCase
      */
     public function testCanReadJson(): void
     {
-        $migraine = $this->createMigraine('03-json-reader.yml');
+        $migraine = $this->createParser('03-json-reader.yml')->getMigraine();
         $r = $migraine->execute();
 
         $this->assertCount(3, $r->getDefaultStorage());
+    }
+
+    /**
+     * @throws StorageException
+     * @throws TaskException
+     */
+    public function testUnsupportedVersion(): void
+    {
+        $parser = $this->createParser('04-unsupported-version.yml');
+        $migraine = $parser->getMigraine();
+
+        $this->assertFalse($migraine->supports($parser->getRequiredVersion()));
     }
 }

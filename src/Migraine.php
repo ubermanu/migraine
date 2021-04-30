@@ -18,6 +18,14 @@ class Migraine
         VersionManagerTrait;
 
     /**
+     * Migraine constructor.
+     */
+    public function __construct()
+    {
+        $this->initializeVersionManager();
+    }
+
+    /**
      * @return TaskRuntime
      * @throws Exception\StorageException
      */
