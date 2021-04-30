@@ -59,6 +59,10 @@ class ExecuteCommand extends Command
             return Command::FAILURE;
         }
 
+        // Setup bridge to the console helpers
+        // For an example usage, check the dump processor
+        Migraine::bindConsole($input, $output);
+
         $migraine->execute($input->getArgument('task'));
 
         return Command::SUCCESS;
