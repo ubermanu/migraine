@@ -10,17 +10,21 @@
         }
     ],
     "require": {
-        "php": ">=7.4.0",
-        "ext-json": "*",
-        "ext-simplexml": "*",
-        "ext-pdo": "*",
-        "ext-pdo_sqlite": "*",
+        "php": "^8.0",
         "hoa/ruler": "~2.0",
         "symfony/yaml": "^5.1",
         "symfony/console": "^5.1",
         "doctrine/annotations": "^1.11"
     },
+    "suggest": {
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "ext-pdo": "*"
+    },
     "require-dev": {
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "ext-pdo_sqlite": "*",
         "phpunit/phpunit": "^9.4"
     },
     "autoload": {
