@@ -21,7 +21,7 @@ trait VersionManagerTrait
      */
     public function initializeVersionManager(): void
     {
-        $this->version = \Composer\InstalledVersions::getRootPackage()['version'];
+        $this->version = \Composer\InstalledVersions::getRootPackage()['pretty_version'];
     }
 
     /**
