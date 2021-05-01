@@ -44,7 +44,7 @@ class Migraine
         $taskRuntime->execute($taskName);
 
         $elapsed = microtime(true) - $start;
-        $taskRuntime->getLogger()?->notice(sprintf('✓ Executed in %0.4fs', $elapsed));
+        $taskRuntime->getLogger()->notice(sprintf('✓ Executed in %0.4fs', $elapsed));
 
         return $taskRuntime;
     }

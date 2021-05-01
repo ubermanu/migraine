@@ -7,6 +7,7 @@ use Migraine\Exception\StorageException;
 use Migraine\Traits\ConsoleLoggerTrait;
 use Migraine\Traits\StorageCollectionTrait;
 use Migraine\Traits\TaskCollectionTrait;
+use Psr\Log\NullLogger;
 
 /**
  * Class TaskRuntime
@@ -36,6 +37,7 @@ class TaskRuntime
             $this->logger = $migraine->getLogger();
         }
 
+        $this->logger ??= new NullLogger();
         $this->setDefaultStorageIdentifier('storage-' . md5(microtime()));
         $this->addStorage($this->defaultStorageIdentifier, new Storage());
     }
@@ -63,7 +65,7 @@ class TaskRuntime
      */
     public function execute(string $taskName): void
     {
-        $this->getLogger()?->debug(sprintf('Run task "%s"', $taskName));
+        $this->getLogger()->debug(sprintf('Run task "%s"', $taskName));
         $this->getTask($taskName)->execute($this);
     }
 }

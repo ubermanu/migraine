@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Migraine\Traits;
 
-use Symfony\Component\Console\Logger\ConsoleLogger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Trait ConsoleLoggerTrait
@@ -12,22 +12,22 @@ use Symfony\Component\Console\Logger\ConsoleLogger;
 trait ConsoleLoggerTrait
 {
     /**
-     * @var ConsoleLogger|null
+     * @var LoggerInterface|null
      */
-    protected ?ConsoleLogger $logger = null;
+    protected ?LoggerInterface $logger = null;
 
     /**
-     * @param ConsoleLogger $logger
+     * @param LoggerInterface $logger
      */
-    public function setLogger(ConsoleLogger $logger): void
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
 
     /**
-     * @return ConsoleLogger|null
+     * @return LoggerInterface|null
      */
-    public function getLogger(): ?ConsoleLogger
+    public function getLogger(): ?LoggerInterface
     {
         return $this->logger;
     }

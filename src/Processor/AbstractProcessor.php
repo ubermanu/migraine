@@ -34,8 +34,8 @@ abstract class AbstractProcessor
                 return $taskRuntime->getStorage($storageId);
             }
         } catch (StorageException $e) {
-            $taskRuntime->getLogger()?->warning($e->getMessage());
-            $taskRuntime->getLogger()?->warning('↳ Fallback on the default storage');
+            $taskRuntime->getLogger()->warning($e->getMessage());
+            $taskRuntime->getLogger()->warning('↳ Fallback on the default storage');
         }
 
         return $taskRuntime->getDefaultStorage();
