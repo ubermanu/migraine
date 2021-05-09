@@ -9,9 +9,9 @@ In short, it's a tool to transform and format data.
 composer global require ubermanu/migraine
 ```
 
-## Quick start
+## Getting started
 
-You can check out the [documentation](https://ubermanu.github.io/migraine).
+You can check out the [documentation](https://ubermanu.gitbook.io/migraine).
 
 ## Build
 
