@@ -2,7 +2,7 @@
     "name": "ubermanu/migraine",
     "description": "Task runner oriented on data migration",
     "license": "MIT",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "authors": [
         {
             "name": "Emmanuel Vodor",
