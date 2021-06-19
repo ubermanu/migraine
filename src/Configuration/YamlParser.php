@@ -52,6 +52,8 @@ class YamlParser extends AbstractParser
      */
     public function parse(): YamlParser
     {
+        $this->configuration = $this->preprocessAdditionalTags($this->configuration);
+
         foreach ($this->configuration as $identifier => $node) {
             if ($node instanceof TaggedValue) {
                 switch ($node->getTag()) {
@@ -67,6 +69,43 @@ class YamlParser extends AbstractParser
         }
 
         return $this;
+    }
+
+    /**
+     * Add support for preprocessor:
+     *  - Environment variables
+     *
+     * @param array $config
+     * @return array
+     * @throws StorageException
+     * @throws TaskException
+     */
+    protected function preprocessAdditionalTags(array $config): array
+    {
+        foreach ($config as $identifier => $node) {
+            if ($node instanceof TaggedValue) {
+                switch ($node->getTag()) {
+                    case 'env':
+                        $config[$identifier] = getenv($node->getValue());
+                        break;
+                    default:
+                }
+
+                if (is_array($node->getValue())) {
+                    $config[$identifier] = new TaggedValue(
+                        $node->getTag(),
+                        $this->preprocessAdditionalTags($node->getValue())
+                    );
+                }
+                continue;
+            }
+
+            if (is_array($node)) {
+                $config[$identifier] = $this->preprocessAdditionalTags($node);
+            }
+        }
+
+        return $config;
     }
 
     /**
